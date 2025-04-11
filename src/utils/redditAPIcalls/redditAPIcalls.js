@@ -1,10 +1,10 @@
 
 
+// urls for accessing Reddit and subreddit json data
 const homeUrl    = 'https://www.reddit.com/';
 const subReddits = 'https://www.reddit.com/reddits.json';
 
-
-const RedditAPIcalls = {
+const RedditAPIcalls = { // nest API calling functions into one exportable object
 
     async getSubReddits() { // returns JSON object containing all subreddits' information
         const response = await fetch(subReddits);
@@ -20,4 +20,4 @@ const RedditAPIcalls = {
     }
 };
 
-export default RedditAPIcalls;
+export default RedditAPIcalls; // exports functions as one object
