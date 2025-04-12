@@ -1,6 +1,12 @@
+import React from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch  } from "react-redux";
+
+const PostsBody = ({ subRedditUrl }) => {
+
+    const [subRedditUrl, getSubRedditUrl] = useState('');
 
 
-const PostsBody = () => {
 
     return (
         <div>
