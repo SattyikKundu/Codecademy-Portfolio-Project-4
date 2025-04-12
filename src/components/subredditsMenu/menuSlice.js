@@ -11,8 +11,10 @@ export const getSubReddits = createAsyncThunk('menu/getSubReddits', // links to 
         const subRedditsArray = data.data.children.map((child)=>( // returns array of menu item objects
             { 
                 iconUrl: child.data.icon_img,
+                color:   child.data.primary_color,
                 title:   child.data.display_name,
-                url:     child.data.url || ''
+                //url:     child.data.url || ''
+                url:     RedditAPIcallsfrom.getSubRedditUrl(child.data.url || '')
             }
         ));
         return subRedditsArray; // return array with sub Reddits' information for menu

@@ -8,9 +8,13 @@ const App = () => {
 
     return(
         <>
-        <SearchHeader/>
-        <SubredditsMenu />
-        <PostsBody />
+        <div className="top">
+            <SearchHeader/>
+        </div>
+        <div className="body">
+            <SubredditsMenu />
+            <PostsBody />
+        </div>
         </>
     );
 }

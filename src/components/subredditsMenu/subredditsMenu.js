@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import {getSubReddits} from './menuSlice.js';
 
+import './subredditsMenu.css';
+
 const SubredditsMenu = () => {
 
     // import state from menuSlice
@@ -20,18 +22,25 @@ const SubredditsMenu = () => {
 
     return (
         // Return subreddits' params value in menu
-        <div>
-            {status === 'loading' && <p>waiting....</p>}
-            {status === 'failed' && <p>Error is: {error}</p>}
-            {(status === 'succeeded' && subReddits && subReddits.length>0)?
-              subReddits.map((subReddit, k) => {
-                return (<div key={k}>
-                            <img src={subReddit.iconUrl} alt={subReddit.title} style={{width:'30px', height:'30px'}} />
-                            <p>{subReddit.title}</p>
-                            <p>{subReddit.iconUrl}</p>
-                        </div>);
-              }): null
-            }
+        <div className="subreddits-menu">
+            <h3>Subreddits</h3>
+            <div className="subreddits-container">
+                {status === 'loading' && <h2>loading....</h2>}
+                {status === 'failed' && <h2>Error is: {error}</h2>}
+                {(status === 'succeeded' && subReddits && subReddits.length>0)?
+                subReddits.map((subReddit, k) => {
+                    return (<div className="subreddit-item" key={k}>
+                                <img src={subReddit.iconUrl || 'images/no-image-icon.png'} 
+                                    alt={subReddit.title} 
+                                    className="icon-img"
+                                    style={{border: `3px solid ${subReddit.color}`}} 
+                                    />
+                                <div>{subReddit.title}</div>
+                                {/*<div>{subReddit.url}</div> */}
+                            </div>);
+                }): null
+                }
+            </div>
         </div>
     );
 };
