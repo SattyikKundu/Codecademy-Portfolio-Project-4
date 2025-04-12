@@ -8,16 +8,19 @@ const RedditAPIcalls = { // nest API calling functions into one exportable objec
 
     async getSubReddits() { // returns JSON object containing all subreddits' information
         const  response   = await fetch(subReddits);
-        const  subReddits = await response.json(); 
-        return subReddits;
+        //const  subReddits = await response.json(); // <== 'subReddits' being same cause issues!
+        const  subRedditsJSON = await response.json(); 
+        return subRedditsJSON;
     },
 
     getSubRedditUrl(paramUrl) { // (ex:'/r/Home/') creates full url for selected subreddit
 
+        console.log('paramUrl: ',paramUrl);
+
         /* NOTE: 'paramUrl.subString(0,(paramUrl.length-1))' excludes last 
                   character('/') from paramUrl so '.json' can be appended */
-        const subRedditUrl = `${homeUrl}${paramUrl.subString(0,(paramUrl.length-1))}.json`;
-        //const subRedditUrl = homeUrl + paramUrl.subString(0,(paramUrl.length-1)) + '.json';
+        const subRedditUrl = `${homeUrl}${paramUrl.substring(0,(paramUrl.length-1))}.json`;
+        //const subRedditUrl = homeUrl + paramUrl.substring(0,(paramUrl.length-1)) + '.json';
         return subRedditUrl;
     },
 

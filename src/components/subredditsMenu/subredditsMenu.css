@@ -23,12 +23,12 @@
     overflow-x: hidden;
 }
 
-.subreddit-item { /* Makes the icon and sub-Reddit name placed horizontally */
+.subreddit-item, .subreddit-item-clicked { /* Styliing makes icon and sub-Reddit name placed horizontally 
+                                              Also, this is common styling before and after click */
 
     align-items: center; /* centers text horizontally */
     border-bottom: 2px solid rgba(182, 182, 182, 0.603); /* bottom border to visually divide*/
 
-    background-color: transparent;
     cursor: pointer; 
 
     padding: .7rem;   /* spacing between item containers */  
@@ -39,9 +39,19 @@
     flex-direction: row;
 }
 
-.subreddit-item:hover {
-    background-color: bisque;
+.subreddit-item { /* Transparent when unselected */
+    background-color: transparent;
 }
+
+.subreddit-item-clicked { /* Bright peach color when unselected */
+    background-color: rgb(248, 189, 116);
+}
+
+.subreddit-item:hover { /* Light peach color when hovering option */
+    background-color: rgb(250, 217, 177);
+}
+
+
 
 .icon-img {
     width: 30px;  /* icon sizing */
