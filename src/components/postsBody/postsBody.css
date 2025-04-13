@@ -7,9 +7,51 @@
     flex-grow: 1;
     overflow-y: auto;   /* Adds vertical scroll if menu exceeds page*/
     overflow-x: hidden;
+
+    align-items: center; /* Center post in middle vertically*/
 }
 
 .post {
-    border: 2px solid black;
-    margin: 0.5rem;
+   /* border: 2px solid black;*/
+
+   width: 80%;
+   margin: 1rem auto;
+
+   box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, 
+               rgba(17, 17, 26, 0.1) 0px 8px 24px, 
+               rgba(17, 17, 26, 0.1) 0px 16px 48px;
+
+   display: flex;
+   flex-direction: column;
+    
+   height: auto;
+   border-radius: 0.5rem;
+}
+
+.post h2 {
+    width: 80%;
+    margin: 1rem auto;
+    border-bottom: 2px solid rgba(172, 172, 172, 0.692);
+}
+
+.post .media-body {
+    width: 80%;
+    height: auto;
+    display: block;
+    border-bottom: 2px solid rgba(172, 172, 172, 0.692);
+    margin: 0 auto;
+}
+
+.post-vid {
+    width: 100%;
+    height: auto;
+}
+
+.post-img {
+    width: 100%;
+    height: auto;
+}
+
+.up-votes {
+    margin-left: 1.5rem;
 }

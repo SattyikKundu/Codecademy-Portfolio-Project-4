@@ -17,9 +17,7 @@ const RedditAPIcalls = { // nest API calling functions into one exportable objec
 
         /* NOTE: 'paramUrl.subString(0,(paramUrl.length-1))' excludes last 
                   character('/') from paramUrl so '.json' can be appended */
-        //const fullSubRedditUrl = `${homeUrl}${paramUrl.substring(0,(paramUrl.length-1))}.json`;
-        //const subRedditUrl = homeUrl + paramUrl.substring(0,(paramUrl.length-1)) + '.json';
-        const fullSubRedditUrl = `${homeUrl}${paramUrl.slice(0,-1)}.json`;
+        const fullSubRedditUrl = `${homeUrl}${paramUrl.slice(0,-1)}.json?raw_json=1`;
         return fullSubRedditUrl;
     },
 
@@ -34,7 +32,6 @@ const RedditAPIcalls = { // nest API calling functions into one exportable objec
         /* NOTE: 'permaLink.slice(0,-1)' excludes last 
                   character('/') from permaLink so '.json' can be appended */
         const fullPostUrl = `${homeUrl}${permaLink.slice(0,-1)}.json`;
-        //const  fullPostUrl = homeUrl + permaLink.slice(0,-1) + '.json';
         const response    = await fetch(fullPostUrl);
         const post        = await response.json()
 

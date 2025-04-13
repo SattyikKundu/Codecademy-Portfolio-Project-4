@@ -47,13 +47,28 @@ const PostsBody = ({ subRedditUrl }) => {
             {(status === 'succeeded' && posts && posts.length>0) 
                 ?(posts.map((post)=>{
                     return (
-                    <div className="post">
-                        <p>Title: {post.title}</p>
+                    <div className="post" key={post.permalink}>
+                    {/*}    <p>Title: {post.title}</p>
                         <p>Author: {post.author}</p>
                         <p>Upvotes: {post.ups}</p>
                         <p>Image?: {(post.image) ? post.image: 'none'} </p>
                         <p>Video?: {(post.video) ? post.video.vidUrl: 'none'}</p>
-                        <p>Comments?: {(post.comments && post.comments.length>0) ? post.comments.length:'none'}</p>
+                        <p>Comments?: {(post.comments && post.comments.length>0) ? post.comments.length:'none'}</p> */}
+                        <h2 className="title">{post.title}</h2>
+                        <div className="media-body">
+                            {
+                                (post.video)? 
+                                (<video className='post-vid' width={post.video.width} height={post.video.height} controls>
+                                    <source src={post.video.vidUrl} type="video/mp4" />
+                                    Your browser does not support the video tag.
+                                  </video>
+                                ): 
+                                (
+                                    <img className='post-img' src={post.image} alt="img visual"/>
+                                )
+                            }
+                        </div>
+                        <div className="up-votes">{post.ups}</div>
                     </div> 
                     )
                 }))
