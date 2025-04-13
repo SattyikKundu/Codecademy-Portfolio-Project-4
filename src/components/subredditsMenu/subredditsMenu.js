@@ -2,13 +2,13 @@ import React from "react";
 import { useState, useEffect} from "react";
 import { useSelector, useDispatch } from 'react-redux';
 
-import {getSubReddits} from './menuSlice.js';
+import {getAllSubReddits}   from './menuSlice.js';
+import RedditAPIcalls from "../../utils/redditAPIcalls/redditAPIcalls";
 
 import './subredditsMenu.css';
 
-//const SubredditsMenu = ({setSubRedditUrl}) => {
-
-const SubredditsMenu = () => {
+const SubRedditsMenu = ({setSubRedditUrl}) => {
+//    const SubRedditsMenu = () => {
 
     // Track currently selected Sub Reddit
     const [selected, setSelected] = useState('/r/Home/'); // sets default subReddit to 'Home' subreddit
@@ -21,12 +21,26 @@ const SubredditsMenu = () => {
     const dispatch = useDispatch(); // for dispatching menuSlice.js functions
 
     useEffect(()=>{ 
-        /* runs getSubReddits() and stores subReddit values into state */
-        dispatch(getSubReddits());
+        /*
+        const delayLoadOnDOM = setTimeout(() => {
+            setSubRedditUrl(RedditAPIcalls.getFullSubRedditUrl(selected)); // Stores url of default Subreddit 
+            dispatch(getAllSubReddits()); // runs getSubReddits() and stores subReddit values into state 
+        }, 10000);
+        return () => clearTimeout(delayLoadOnDOM); */
+
+        const asyncFetch = async () => {
+            setSubRedditUrl(RedditAPIcalls.getFullSubRedditUrl(selected)); // Stores url of default Subreddit 
+            dispatch(getAllSubReddits()); // runs getSubReddits() and stores subReddit values into state 
+        };
+        asyncFetch();
     },[]); 
 
     const handleClick = (subRedditUrl) => {
         setSelected(subRedditUrl);
+
+        /* Used 'subRedditUrl' instead of 'selected' since getFullSubRedditUrl() is 
+           asynchronous and 'selected' may not be updated by time of click */
+        setSubRedditUrl(RedditAPIcalls.getFullSubRedditUrl(subRedditUrl)); 
     }
 
     return (
@@ -49,6 +63,7 @@ const SubredditsMenu = () => {
                                     style={{border: `3px solid ${subReddit.color}`}} 
                                     />
                                 <div>{subReddit.title}</div>
+                               {/* <div>{subReddit.url}</div> */}
                             </div>
                             );
                     })
@@ -59,4 +74,4 @@ const SubredditsMenu = () => {
     );
 };
 
-export default SubredditsMenu;
+export default SubRedditsMenu;

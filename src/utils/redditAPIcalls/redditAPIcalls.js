@@ -13,15 +13,14 @@ const RedditAPIcalls = { // nest API calling functions into one exportable objec
         return subRedditsJSON;
     },
 
-    getSubRedditUrl(paramUrl) { // (ex:'/r/Home/') creates full url for selected subreddit
-
-        console.log('paramUrl: ',paramUrl);
+    getFullSubRedditUrl(paramUrl) { // (ex:'/r/Home/') creates full url for selected subreddit
 
         /* NOTE: 'paramUrl.subString(0,(paramUrl.length-1))' excludes last 
                   character('/') from paramUrl so '.json' can be appended */
-        const subRedditUrl = `${homeUrl}${paramUrl.substring(0,(paramUrl.length-1))}.json`;
+        //const fullSubRedditUrl = `${homeUrl}${paramUrl.substring(0,(paramUrl.length-1))}.json`;
         //const subRedditUrl = homeUrl + paramUrl.substring(0,(paramUrl.length-1)) + '.json';
-        return subRedditUrl;
+        const fullSubRedditUrl = `${homeUrl}${paramUrl.slice(0,-1)}.json`;
+        return fullSubRedditUrl;
     },
 
     async getSubRedditPosts(subRedditUrl) { // retuns JSON object of specific subreddit based on param input

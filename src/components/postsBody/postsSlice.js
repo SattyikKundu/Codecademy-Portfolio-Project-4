@@ -12,15 +12,35 @@ export const getPosts = createAsyncThunk('posts/getPosts',
 
     async (subbRedditUrl) => { // function runs when asyncThink executed
 
-        /* First get data of all posts of chosen Sub Reddit (via subbRedditUrl) */
+        // First get data of all posts of chosen Sub Reddit (via subbRedditUrl) 
         const subRedditData = await RedditAPIcalls.getSubRedditPosts(subbRedditUrl);
 
-        /* In below function used to create Post objects (containing relevant data), Promise.all() 
-           is used to wait for all comment-fetching to finish (using getComments()) */
+        // In below function used to create Post objects (containing relevant data), Promise.all() 
+        // is used to wait for all comment-fetching to finish (using getComments()) 
         const subRedditPosts = await Promise.all( 
             subRedditData.data.children.map(async(child) =>{
 
-                comments = await getComments(child.data.permalink); // get all comments for post using post's permalink
+                const data = child.data; // extract 1st nested layer of 'child' 
+
+                const comments = await getComments(data.permalink); // get all comments for post using post's permalink
+
+                // detect and retrieve thumbnail image (if it exists)
+                const image = (data.thumbnail && data.thumbnail!=="" && data.thumbnail !=="self")
+                    ? (data.thumbnail) 
+                    : null;
+
+                // detect and retrieve video file (if it exists)
+                let video = null;
+                if(data.secure_media && data.secure_media.reddit_video) { // 1st check 'secure_media'
+                    video = { vidUrl: data.secure_media.reddit_video.fallback_url, 
+                              width:  data.secure_media.reddit_video.width, 
+                              height: data.secure_media.reddit_video.height };
+                }
+                else if(data.media && data.media.reddit_video) { // then check 'media'
+                    video = { vidUrl: data.media.reddit_video.fallback_url, 
+                              width:  data.media.reddit_video.width, 
+                              height: data.media.reddit_video.height };                
+                }
 
                 return { // created Post object
                     title:      child.data.title,     // get post author
@@ -29,17 +49,8 @@ export const getPosts = createAsyncThunk('posts/getPosts',
                     ups:        child.data.ups,       // get post upvotes
                     permalink:  child.data.permalink, // stores posts's permalink (if needed later)
 
-                    img:    (child.data.thumbnail && child.data.thumbnail!=="" && child.data.thumbnail !=="self"
-                                ? (child.data.thumbnail) // gets image thumbnail url if it exists
-                                : null
-                            ),
-
-                    video: (child.data.secure_media !== null  // get video clip url of post if it's there
-                                ? ({ vidUrl: child.data.secure_media.fallback_url, 
-                                    width:   child.data.secure_media.width, 
-                                    height:  child.data.secure_media.height })
-                                : null
-                            ),
+                    image:      image, // save thumbnail_image here
+                    video:      video, // save video clip here
 
                     showComments:    false, // used to toggle if comments is visible or not
                     comments:     comments, // stores comments array variable here
@@ -48,11 +59,9 @@ export const getPosts = createAsyncThunk('posts/getPosts',
                 };
             })
         );
-
         return subRedditPosts; // returns all posts for Sub Reddit
     }
-);
-
+); 
 /***********************************************************************************
     Below async function is used as part of the above asyncThunk 'posts/getPosts' 
     action in order to add comments array([])for each post object 
@@ -83,7 +92,7 @@ const postSlice = createSlice({
     initialState: { // 'store' for this slice
         posts:   [],
         error:   false,
-        loading: false,
+        status: 'idle',
         searchTerm: '',
         subReddit_PermaLink: '/r/Home/'
     },
@@ -91,7 +100,7 @@ const postSlice = createSlice({
         setPosts(state, action) {
             state.posts = getPosts(action.payload); // <= THIS triggers extraReducer below
         },
-        getPosts(state) { // gets stored posts
+        getAllPosts(state) { // gets stored posts
             if(state.posts) {
                 return state.posts
             }
@@ -116,16 +125,27 @@ const postSlice = createSlice({
     extraReducers: (builder) => { // Actions that trigger due to asyncThunk function getPosts() invoked
         builder
             .addCase(getPosts.pending, (state) => {
-                state.loading = true;
+                state.status = 'loading';
             })
-            .addCase(getPosts.rejected, (state) => {
-                state.loading = false;
-                state.error = true;
+            .addCase(getPosts.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message;
             })
             .addCase(getPosts.fulfilled, (state, action) => {
-                state.loading = false;
+                state.status = 'succeeded';
                 state.posts = action.payload;
             })
     }
 
 });
+
+export const {
+    setPosts, 
+    getAllPosts, 
+    setSearchTerm,
+    getSearchTerm,
+    setSubReddit_Permalink,
+    getSubReddit_Permalink
+    } = postSlice.actions;
+
+export default postSlice.reducer; // exports slice
