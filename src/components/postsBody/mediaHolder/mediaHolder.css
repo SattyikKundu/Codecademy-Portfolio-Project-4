@@ -6,7 +6,7 @@
   display: flex;  /* Centers video/image(s) inside container horizontally */
   justify-content: center;
 
-  margin: 0 auto; /* Horizontally centers THIS container itself. */
+  margin: 1rem auto 0 auto; /* Horizontally centers THIS container itself. */
 
 }
 
@@ -14,13 +14,17 @@
   background-color: #161616af; /* Adds background color for space around video */
   border: 1px solid rgba(15, 15, 15, 0.596);
   border-radius: 1rem;
+
+  max-height: 500px; /* Max height constraint */
+  align-items: center;
+  overflow: hidden; /* Clip overflow if needed */
 }
 
 .post-vid  { /* Centers and contains video inside parent */
   max-height: 100%;
   max-width: 100%; 
   object-fit: contain;
-  border-radius: 1rem;
+  border-radius: 1rem; 
 }
 
 .images-container { /* styling if container holds multiple images in slideshow form*/
@@ -30,18 +34,33 @@
   background-color: #91919179; /* Adds background styling for carousel*/
   border: 1px solid rgba(110, 110, 110, 0.596);
   border-radius: 1rem;
+
+  /*align-items: center; /* ensures vertical alignment */
 } 
 
  /* Takes full width if there's only 1 image */
-.image-container img { width: 100%; }
+.image-container img { 
+  width: 100%;
+  /*object-fit: contain;
+  /*display: block;
+  /*margin: 0 auto;
+  width: auto;
+  height: auto; 
+  max-width: 100%; */
+  /*max-height: 500px; /* Prevent super tall images */
+}
 
-/* Takes 90% width if image slideshow */
+/* Takes 90% width if multiple images slideshow */
 .images-container img { width: 90%; }
 
-.post-image  { /* Centers and contains actual post image */
+.post-image  { /* Centers and contains actual post image (including carousel images) */
   max-height: 100%;
   max-width: 100%; 
   object-fit: contain;
+
+  display: block;       /* avoid inline gaps */
+  margin: 0 auto;       /* horizontally center safely*/
+  /*width: auto; /**/
 }
 
 
@@ -93,7 +112,11 @@
     bottom: 10px;       /* margin from image bottom*/
     
     display: flex; /* used to vertically center orbs in orbs container */
-    justify-content: center;
+    /*justify-content: center;
+    align-items: center; */
+
+    left: 50%;                      /* center from left */
+    transform: translateX(-50%);    /* shift back half width for perfect center */
 
     background-color: rgba(73, 73, 73, 0.692); /* background around */
     border-radius: 1rem;

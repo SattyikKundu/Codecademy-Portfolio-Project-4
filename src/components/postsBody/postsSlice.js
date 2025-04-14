@@ -35,11 +35,15 @@ export const getPosts = createAsyncThunk('posts/getPosts',
 
                         if (img_metadata && img_metadata.p && img_metadata.p.length>2) { // If number of preview images >2 ...
                                                     
-                            //const image_url = img_metadata.s.u; //<== experiment with source file later
+                            /* OPTIONAL: Below takes params from source file and not from selected resolution like below */
+                            //const image_url = img_metadata.s.u; 
+                            //const height = img_metadata.s.y;
+                            //const width = img_metadata.s.x;
 
                             const image_url  = img_metadata.p[2].u;
                             const height = img_metadata.p[2].y;
                             //const width = img_metadata.p[2].x;
+
                             images.push({id: id, url: image_url, height: height});
                         }
                     }
@@ -48,11 +52,15 @@ export const getPosts = createAsyncThunk('posts/getPosts',
 
                     const imgData = data.preview.images[0]; // gets image object of the sole image 
 
-                    //const image_url = imgData.source.url; // <== experiment with source image later
-
                     const id        = imgData.id || 'preview_0';
-                    const image_url = imgData.resolutions[2].url; // get 3rd image
-                    const height    = imgData.resolutions[2].height;
+
+                    /* OPTIONAL: Below takes params from source file and not from selected resolution like below */
+                    const image_url = imgData.source.url; 
+                    const height    = imgData.source.height;
+                    //const width     = imgData.source.width;
+
+                    //const image_url = imgData.resolutions[2].url; // get 3rd image
+                    //const height    = imgData.resolutions[2].height;
                     //const width     = imgData.resolutions[2].width;
 
                     images.push({id: id, url: image_url, height: height});
@@ -62,14 +70,21 @@ export const getPosts = createAsyncThunk('posts/getPosts',
                 // detect and retrieve video file (if it exists)
                 let video = null;
                 if(data.secure_media && data.secure_media.reddit_video) { // 1st check 'secure_media'
-                    video = { vidUrl: data.secure_media.reddit_video.fallback_url, 
-                              width:  data.secure_media.reddit_video.width, 
-                              height: data.secure_media.reddit_video.height };
+
+                    video = { 
+                              dashUrl: data.secure_media.reddit_video.dash_url, // video url with both sound & video
+                              fallUrl: data.secure_media.reddit_video.fallback_url, // fallback video with only video, but no sound
+                              width:   data.secure_media.reddit_video.width, 
+                              height:  data.secure_media.reddit_video.height 
+                            };
                 }
                 else if(data.media && data.media.reddit_video) { // then check 'media'
-                    video = { vidUrl: data.media.reddit_video.fallback_url, 
-                              width:  data.media.reddit_video.width, 
-                              height: data.media.reddit_video.height };                
+                    video = { 
+                              dashUrl: data.media.reddit_video.dash_url, 
+                              fallUrl: data.media.reddit_video.fallback_url, 
+                              width:   data.media.reddit_video.width, 
+                              height:  data.media.reddit_video.height 
+                            };                
                 }
 
                 return { // created Post object
@@ -80,7 +95,7 @@ export const getPosts = createAsyncThunk('posts/getPosts',
                     permalink:  child.data.permalink, // stores posts's permalink (if needed later)
                     text:       (child.data.selftext || ""),  // If there's accompanying text within post 
 
-                    images:      images, // save thumbnail_image here
+                    images:     images, // save thumbnail_image here
                     video:      video, // save video clip here
 
                     showComments:    false, // used to toggle if comments is visible or not
