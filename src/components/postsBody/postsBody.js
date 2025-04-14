@@ -53,6 +53,7 @@ const PostsBody = ({ subRedditUrl }) => {
                             // If video exists, prioritize rendering it, otherwise render image(s) instead
                             (post.video)?  (<VideoHolder video={post.video} />) : (<ImageHolder images={post.images} />)
                         }
+                        <div className="body-text">{post.text}</div>
                         <div className="up-votes">{post.ups}</div>
                     </div> 
                     )

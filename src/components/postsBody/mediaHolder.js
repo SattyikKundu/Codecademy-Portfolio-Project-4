@@ -4,9 +4,25 @@ import { useState } from "react";
 import './mediaHolder.css';
 
 export const VideoHolder = ({video}) => { // Pass video url so it can be rendered
+
+    // Get and set max height of video 
+    const [vidheight, setVidHeight] = useState(0);
+    useEffect(() => {
+        const setMax = () => { // get the max height out of all images
+            if(video && video.vidUrl && video.height ){
+                const vidHeight = video.height;
+                setVidHeight(vidHeight < 500 ? vidHeight: 500); //save calculated max only if under 500px
+            }
+        }
+        setMax();
+    },[video])
+
     return (
      <>
-     <div className="video-container">
+     <div 
+       className="video-container" 
+       style={{height:`${vidheight}px`}}// set height of video container 
+     >
         <video className='post-vid' width={video.width} height={video.height} controls>
             <source src={video.vidUrl} type="video/mp4" />
             Your browser does not support the video tag.
@@ -46,7 +62,8 @@ export const ImageHolder = ({images}) => {
     return (
        <>
        <div 
-          className={(images && images.length ===1) ? 'image-container' : 'images-container'}
+          // Below: 'image-container' class only applies if there's 1 or no image 
+          className={(images && images.length>1) ? 'images-container': 'image-container'}
           style={{height:`${maxheight}px`}}
        >
        {images && images.length > 0 && images[index] && images[index].url && ( // First checks if image(s) available...

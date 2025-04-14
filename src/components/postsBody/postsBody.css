@@ -9,11 +9,12 @@
     overflow-x: hidden;
 
     align-items: center; /* Center post in middle vertically*/
+
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font style and size */
+    font-size: 1rem;
 }
 
-.post {
-   /* border: 2px solid black;*/
-
+.post { /* Styles shape of .post and uses flex-column for vertical alignment of items */
    width: 80%;
    margin: 1rem auto;
 
@@ -31,7 +32,7 @@
 .post h2 {
     width: 80%;
     margin: 1rem auto;
-    border-bottom: 2px solid rgba(172, 172, 172, 0.692);
+    border-bottom: 2px solid rgba(172, 172, 172, 0.692); 
 }
 
 .post-vid {

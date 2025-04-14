@@ -10,6 +10,19 @@
 
 }
 
+.video-container {
+  background-color: #161616af; /* Adds background color for space around video */
+  border: 1px solid rgba(15, 15, 15, 0.596);
+  border-radius: 1rem;
+}
+
+.post-vid  { /* Centers and contains video inside parent */
+  max-height: 100%;
+  max-width: 100%; 
+  object-fit: contain;
+  border-radius: 1rem;
+}
+
 .images-container { /* styling if container holds multiple images in slideshow form*/
   position: relative; /* Enables absolute position in child components. 
                          VERY IMPORTANT for indicator orbs and left/right buttons. */
