@@ -2,7 +2,8 @@
 
 // urls for accessing Reddit and subreddit json data
 const homeUrl    = 'https://www.reddit.com';
-const subReddits = 'https://www.reddit.com/reddits.json';
+const subReddits = 'https://www.reddit.com/reddits.json?';
+//const subReddits = 'https://www.reddit.com/reddits.json?raw_json=1';
 
 const RedditAPIcalls = { // nest API calling functions into one exportable object
 

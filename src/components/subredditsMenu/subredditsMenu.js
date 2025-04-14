@@ -8,13 +8,11 @@ import RedditAPIcalls from "../../utils/redditAPIcalls/redditAPIcalls";
 import './subredditsMenu.css';
 
 const SubRedditsMenu = ({setSubRedditUrl}) => {
-//    const SubRedditsMenu = () => {
 
     // Track currently selected Sub Reddit
     const [selected, setSelected] = useState('/r/Home/'); // sets default subReddit to 'Home' subreddit
 
-    // import state from menuSlice
-    const subReddits = useSelector(state => state.menu.subReddits);
+    const subReddits = useSelector(state => state.menu.subReddits);// import states from menuSlice
     const status     = useSelector(state => state.menu.status);
     const error      = useSelector(state => state.menu.error);
 
@@ -51,9 +49,10 @@ const SubRedditsMenu = ({setSubRedditUrl}) => {
                 {status === 'loading' && <h2>loading....</h2>}
                 {status === 'failed' && <h2>Error is: {error}</h2>}
                 {(status === 'succeeded' && subReddits && subReddits.length>0)
-                ?subReddits.map((subReddit) => {
+                ?subReddits.map((subReddit, idx) => {
                     return (
                             <div 
+                                key = {subReddit.title || idx}
                                 className={selected!==subReddit.url? "subreddit-item": "subreddit-item-clicked"}
                                 onClick={() => handleClick(subReddit.url)}
                             >
@@ -63,7 +62,7 @@ const SubRedditsMenu = ({setSubRedditUrl}) => {
                                     style={{border: `3px solid ${subReddit.color}`}} 
                                     />
                                 <div>{subReddit.title}</div>
-                               {/* <div>{subReddit.url}</div> */}
+                               {/*} <div>{subReddit.url}</div> */}
                             </div>
                             );
                     })

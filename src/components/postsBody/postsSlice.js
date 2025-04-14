@@ -20,14 +20,44 @@ export const getPosts = createAsyncThunk('posts/getPosts',
         const subRedditPosts = await Promise.all( 
             subRedditData.data.children.map(async(child) =>{
 
-                const data = child.data; // extract 1st nested layer of 'child' 
 
+                const data = child.data; // extract 1st nested layer of 'child' 
                 const comments = await getComments(data.permalink); // get all comments for post using post's permalink
 
-                // detect and retrieve thumbnail image (if it exists)
-                const image = (data.thumbnail && data.thumbnail!=="" && data.thumbnail !=="self")
-                    ? (data.thumbnail) 
-                    : null;
+                let images = [];
+                if(data.media_metadata && data.gallery_data) {
+
+                    const imageIds = data.gallery_data.items.map((item) =>  item.media_id); // stores 'id' of images
+
+                    for (let i=0; i<imageIds.length; i++) { // for each image id...
+                        const id = imageIds[i];
+                        const img_metadata = data.media_metadata[id]; // get image object that with id-value as key
+
+                        if (img_metadata && img_metadata.p && img_metadata.p.length>2) { // If number of preview images >2 ...
+                                                    
+                            //const image_url = img_metadata.s.u; //<== experiment with source file later
+
+                            const image_url  = img_metadata.p[2].u;
+                            const height = img_metadata.p[2].y;
+                            //const width = img_metadata.p[2].x;
+                            images.push({id: id, url: image_url, height: height});
+                        }
+                    }
+
+                } else if(data.preview && data.preview.images && data.preview.images.length > 0) { // There should only be 1 image
+
+                    const imgData = data.preview.images[0]; // gets image object of the sole image 
+
+                    //const image_url = imgData.source.url; // <== experiment with source image later
+
+                    const id        = imgData.id || 'preview_0';
+                    const image_url = imgData.resolutions[2].url; // get 3rd image
+                    const height    = imgData.resolutions[2].height;
+                    //const width     = imgData.resolutions[2].width;
+
+                    images.push({id: id, url: image_url, height: height});
+                }
+                
 
                 // detect and retrieve video file (if it exists)
                 let video = null;
@@ -48,8 +78,9 @@ export const getPosts = createAsyncThunk('posts/getPosts',
                     avatar:     '',                   // author's avatar image url
                     ups:        child.data.ups,       // get post upvotes
                     permalink:  child.data.permalink, // stores posts's permalink (if needed later)
+                    text:       (child.data.selftext || ""),  // If there's accompanying text within post 
 
-                    image:      image, // save thumbnail_image here
+                    images:      images, // save thumbnail_image here
                     video:      video, // save video clip here
 
                     showComments:    false, // used to toggle if comments is visible or not

@@ -34,14 +34,6 @@
     border-bottom: 2px solid rgba(172, 172, 172, 0.692);
 }
 
-.post .media-body {
-    width: 80%;
-    height: auto;
-    display: block;
-    border-bottom: 2px solid rgba(172, 172, 172, 0.692);
-    margin: 0 auto;
-}
-
 .post-vid {
     width: 100%;
     height: auto;

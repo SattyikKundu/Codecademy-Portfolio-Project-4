@@ -1,6 +1,5 @@
 
 .subreddits-menu {
-
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font style and size */
     font-weight: 500;
 
@@ -9,7 +8,7 @@
     width: 280px;    /* width and height of sub-Reddits menu*/
     height: 91vh;    /* ensured vertical scrolling height within view port*/
 
-    display: flex;      /* flex and column display makes menu vertical */
+    display: flex;   /* flex and column display makes menu vertical */
     flex-direction: column;
 }
 
@@ -39,7 +38,7 @@
     flex-direction: row;
 }
 
-.subreddit-item { /* Transparent when unselected */
+.subreddit-item {         /* Transparent when unselected */
     background-color: transparent;
 }
 
@@ -47,18 +46,15 @@
     background-color: rgb(248, 189, 116);
 }
 
-.subreddit-item:hover { /* Light peach color when hovering option */
+.subreddit-item:hover {   /* Light peach color when hovering option */
     background-color: rgb(250, 217, 177);
 }
 
 
-
 .icon-img {
-    width: 30px;  /* icon sizing */
+    width: 30px;          /* icon sizing */
     height: 30px;
-
-    border-radius: 50%; /*make icon border circular*/
-
+    border-radius: 50%;   /*make icon border circular*/
     margin-right: 0.5rem; /* space from text */
 }
 

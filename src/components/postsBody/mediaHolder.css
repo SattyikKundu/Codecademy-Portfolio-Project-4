@@ -1,0 +1,106 @@
+.video-container, .image-container, .images-container { /* Style the video/image(s) containers */
+
+  width: 80%;   /* Fits, with some white space, in parent post container */
+  height: auto;
+
+  display: flex;  /* Centers video/image(s) inside container horizontally */
+  justify-content: center;
+
+  margin: 0 auto; /* Horizontally centers THIS container itself. */
+
+}
+
+.images-container { /* styling if container holds multiple images in slideshow form*/
+  position: relative; /* Enables absolute position in child components. 
+                         VERY IMPORTANT for indicator orbs and left/right buttons. */
+
+  background-color: #91919179; /* Adds background styling for carousel*/
+  border: 1px solid rgba(110, 110, 110, 0.596);
+  border-radius: 1rem;
+} 
+
+ /* Takes full width if there's only 1 image */
+.image-container img { width: 100%; }
+
+/* Takes 90% width if image slideshow */
+.images-container img { width: 90%; }
+
+.post-image  { /* Centers and contains actual post image */
+  max-height: 100%;
+  max-width: 100%; 
+  object-fit: contain;
+}
+
+
+.fade { /*Add 'fade' effect when switching image */
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+@keyframes fade {
+    from {opacity: .4}
+    to   {opacity:  1}
+}
+
+
+/***** Styling for prev/next buttons for image slideshows *****/
+.prev, .next {
+  cursor: pointer;    /* 'pointer' to click on arrow */
+  position: absolute; /* enables buttons to 'float' on image edges */
+
+  top: 50%;     /*top and tranform helps vertically center arrow */
+  transform: translateY(-50%); 
+
+  color: white;   /* Arrows are white and bold */
+  font-weight: bold;
+  font-size: 2rem;
+
+  padding: 0 0.45rem; /*padding and bg color around arrows */
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+/* Left and Right sides */
+.prev {
+  border-radius: 0px 7px 7px 0px; 
+  left: 0px; 
+}
+.next {
+  border-radius: 7px 0px 0px 7px; 
+  right: 0px;
+} 
+
+/* Style for hovering on prev/next buttons */
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+    transition: background-color 0.3s ease;
+}
+
+.orbs { /* contains indicator orbs*/
+
+    position: absolute; /* Used to help move 'orbs' to bottom edge of image */
+    bottom: 10px;       /* margin from image bottom*/
+    
+    display: flex; /* used to vertically center orbs in orbs container */
+    justify-content: center;
+
+    background-color: rgba(73, 73, 73, 0.692); /* background around */
+    border-radius: 1rem;
+    padding: 6px 6px;
+    z-index: 3;
+}
+
+/* General styling for orb indicators */
+.orb, .orb-active {
+    cursor: pointer; /* Highlight click on orb to switch images */
+
+    height: 20px; /* For styling orb shape*/
+    width: 20px;
+    margin: 0 2px;
+    border-radius: 50%;
+
+    display: inline-block; /* orb display and visual transition*/
+    transition: background-color 0.6s ease;
+  }
+  
+  .orb { background-color: #717171; } /* unselected orb*/
+
+  .orb-active, .orb:hover { background-color:  #bbb; } /* selected or hovered orb */
