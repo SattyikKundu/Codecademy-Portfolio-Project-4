@@ -20,52 +20,115 @@ export const getPosts = createAsyncThunk('posts/getPosts',
         const subRedditPosts = await Promise.all( 
             subRedditData.data.children.map(async(child) =>{
 
+                let data;                       // Stores extracted 1st nested layer of 'child' 
+                let galleryUnavailable = false; // Flags if originally existing gallery is somehow unavailable
 
-                const data = child.data; // extract 1st nested layer of 'child' 
-                const comments = await getComments(data.permalink); // get all comments for post using post's permalink
+                /* #1: First, get the post object's, or child's, data.  
+                        In rare cases, all post data is stored further within an attribute 
+                        called 'crosspost_parent_list'. If crosspost_parent_list exists, use 
+                        the nested item in as data. */
+                if (child.data.crosspost_parent_list && child.data.crosspost_parent_list.length > 0) { 
+                    data = child.data.crosspost_parent_list[0]; 
+                } else {  
+                    data = child.data;  // Otherwise use original post data
+                }
 
-                let images = [];
-                if(data.media_metadata && data.gallery_data) {
 
-                    const imageIds = data.gallery_data.items.map((item) =>  item.media_id); // stores 'id' of images
+                /* #2 Use getComments() function (from later in file) to extract all comments
+                      using the posts' permalink. Comments are stored in an array.  */
+                const comments = await getComments(data.permalink); 
 
-                    for (let i=0; i<imageIds.length; i++) { // for each image id...
-                        const id = imageIds[i];
+
+                /* #3: Now obtain posts's image(s) url, width, and height from metadata.
+                       For multiple images, data is stored in 'media_metadata' property while
+                       a single image's is stored in 'preview' property of post json object. 
+                */
+                let images = []; // empty array for storage
+                if(data.media_metadata && data.gallery_data) { // Checks if 'media_metadata' (which hold images's data) 
+                                                               // and associated 'gallery_data' (which stores image Ids) exist..
+
+                    const imageIds = data.gallery_data.items.map((item) =>  item.media_id); //stores image Ids as keys for later use
+
+                    for (let i=0; i<imageIds.length; i++) { // for each image id, extract associated image's meta data.
+
+                        const id = imageIds[i];                       // get current id
                         const img_metadata = data.media_metadata[id]; // get image object that with id-value as key
 
-                        if (img_metadata && img_metadata.p && img_metadata.p.length>2) { // If number of preview images >2 ...
-                                                    
+                        if (img_metadata && img_metadata.p && img_metadata.p.length>0) { // If preview images available
+
+                            /* Below: Checks if image resolution at index 3 (4th resolution) is available.
+                                      Otherwise, return largest available resolution. A rare, but SEVERE, issue 
+                                      occurs when when NOT all 6 images resolution options are available despite 
+                                      being shown on a SubReddit's JSON. Hence, below code first checks if the 
+                                      preferred 4th image resolution data is available; OTHERWISE, fall back 
+                                      to current highest resolution available from within data to avoid failure. */
+                            const index = img_metadata.p[3] ? 3 : img_metadata.p.length - 1;
+                            console.log(`For post ${data.title}, SafeIndex(prev) is: `,index);
+                            const preview = img_metadata.p[index];// extract the nested image preview object from 'media_metadata'
+                           /* if (!preview?.u || !preview?.x || !preview?.y) {
+                                console.warn('Malformed preview data:', preview, 'post id:', id);
+                                continue;
+                            }*/
+
+                            const image_url = preview.u; // preview image's url location
+                            const width = preview.x;     // preview image's width
+                            const height = preview.y;    // preview image's height
+
                             /* OPTIONAL: Below takes params from source file and not from selected resolution like below */
-                            //const image_url = img_metadata.s.u; 
+                            //const image_url = img_metadata.s.u; // images too big 
                             //const height = img_metadata.s.y;
                             //const width = img_metadata.s.x;
 
-                            const image_url  = img_metadata.p[2].u;
-                            const height = img_metadata.p[2].y;
-                            //const width = img_metadata.p[2].x;
+                            // push current image object into 'images' array
+                            images.push({id: id, url: image_url, height: height, width: width});
 
-                            images.push({id: id, url: image_url, height: height});
                         }
+                        /*else { // Safety code....
+                            console.warn('Missing previews (p[]) for image id:', id);
+                        }*/
                     }
 
-                } else if(data.preview && data.preview.images && data.preview.images.length > 0) { // There should only be 1 image
+                    // If there's rare issue where a "is_gallery=true" but has no valid images, flag as unavailable
+                    if (images.length === 0 && data.is_gallery) {
+                        galleryUnavailable = true;
+                    } 
 
-                    const imgData = data.preview.images[0]; // gets image object of the sole image 
+                } 
+                /* Whilst the 'media_metadata' field holds multiple images for a carousel, the
+                   'preview' field only holds multiple resolutions for 1 image 
+                    (since the current child post has 1 image) */
+                else if(data.preview && data.preview.images && data.preview.images.length > 0) { // Checks if 'preview' exists and has data.
 
-                    const id        = imgData.id || 'preview_0';
+                    const imgData = data.preview.images[0];    // nested 'images' json array has only 1 image object to extract. 
+                    const id      = imgData.id || 'preview_0'; // store id (or placeholder) of image.
+
+                    const resolutions = imgData.resolutions; // retrieve all available resolution from imgData
+                    const index = resolutions[3] ? 3 : resolutions.length - 1; // Get index for 4th resolution's data (or largest one available)
+                    //const index =  resolutions.length - 1;
+                    //console.log(`For post ${data.title}, SafeIndex(prev) is: `,index);
+                    
+                    const resolution = resolutions[index]; // get chosenn resolution data object via index
+
+                    const image_url = resolution.url;    // resolution's source url
+                    const width     = resolution.width;  // image's width
+                    const height    = resolution.height; // images' height
+                    images.push({ id, url: image_url, height, width }); // push image into images array
+
+                    /*
+                    if (!res?.url || !res?.width || !res?.height) {
+                        console.warn('Malformed resolution in preview:', res, 'post id:', id);
+                    } else {
+                        const image_url = res.url;
+                        const width = res.width;
+                        const height = res.height;
+                        images.push({ id, url: image_url, height, width });
+                    } */
 
                     /* OPTIONAL: Below takes params from source file and not from selected resolution like below */
-                    const image_url = imgData.source.url; 
-                    const height    = imgData.source.height;
+                    //const image_url = imgData.source.url; 
                     //const width     = imgData.source.width;
-
-                    //const image_url = imgData.resolutions[2].url; // get 3rd image
-                    //const height    = imgData.resolutions[2].height;
-                    //const width     = imgData.resolutions[2].width;
-
-                    images.push({id: id, url: image_url, height: height});
-                }
-                
+                    //const height    = imgData.source.height;
+                }        
 
                 // detect and retrieve video file (if it exists)
                 let video = null;
@@ -78,7 +141,7 @@ export const getPosts = createAsyncThunk('posts/getPosts',
                               height:  data.secure_media.reddit_video.height 
                             };
                 }
-                else if(data.media && data.media.reddit_video) { // then check 'media'
+                else if(data.media && data.media.reddit_video) { // if 'secure_media' falsy, then check 'media' tag
                     video = { 
                               dashUrl: data.media.reddit_video.dash_url, 
                               fallUrl: data.media.reddit_video.fallback_url, 
@@ -87,15 +150,18 @@ export const getPosts = createAsyncThunk('posts/getPosts',
                             };                
                 }
 
-                return { // created Post object
+                return { /* FINALLY create post object*/
                     title:      child.data.title,     // get post author
                     author:     child.data.author,    // get post title
+                    created:    child.data.created,   // get time of post's creation (in unix Time)
                     avatar:     '',                   // author's avatar image url
                     ups:        child.data.ups,       // get post upvotes
                     permalink:  child.data.permalink, // stores posts's permalink (if needed later)
                     text:       (child.data.selftext || ""),  // If there's accompanying text within post 
 
-                    images:     images, // save thumbnail_image here
+                    images:              images, // save images [] here
+                    galleryUnavailable:  galleryUnavailable || false, // true if gallery existed but is missing
+
                     video:      video, // save video clip here
 
                     showComments:    false, // used to toggle if comments is visible or not

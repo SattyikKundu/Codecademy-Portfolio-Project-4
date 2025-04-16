@@ -18,6 +18,7 @@ export const getAllSubReddits = createAsyncThunk('menu/getAllSubReddits', // lin
                     //url:     RedditAPIcallsfrom.getFullSubRedditUrl(child.data.url || '')
                 }
             ));
+            console.log('Sub Reddits array: ', subRedditsArray);
             return subRedditsArray; // return array with sub Reddits' information for menu
         }
         catch (error) {
