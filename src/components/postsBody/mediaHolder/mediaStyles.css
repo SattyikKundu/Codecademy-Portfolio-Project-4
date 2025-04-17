@@ -1,0 +1,238 @@
+/***********************************************************************************************************/
+/***********************************************************************************************************/
+/************** STYLING for the image containers (for both gallery and single image) ***********************/
+/***********************************************************************************************************/
+/***********************************************************************************************************/
+
+/* GENERAL styling for images containers */
+.image-container, .gallery-container { 
+
+    width: 100%;   /* Fits, with some white space, in parent post element */
+    height: auto;
+  
+    display: flex;  /* Centers video/image(s) inside container horizontally */
+    justify-content: center;
+  
+    margin: 1rem auto 0 auto; /* Horizontally centers THIS container itself. */
+}
+
+
+/* STYLING if container holds gallery of images*/
+.gallery-container { 
+    position: relative; /* Enables absolute position in child components. 
+                           VERY IMPORTANT for indicator orbs and left/right buttons. */
+  
+    background-color: #9c9c9c86; /* Adds background color styling for gallery*/
+    border: 1px solid rgba(122, 122, 122, 0.445);
+    border-radius: 1rem;
+  } 
+  
+.gallery-container img { /* Ensure that nested <img> will scale to parent .gallery-container */
+    /*max-height: 100%;
+    max-width: 100%; */
+    height: 100%; 
+    max-width: 100%; 
+    overflow: hidden;
+    object-fit: contain;
+}
+  
+/* STYLING if container holds 1 image*/
+.image-container { 
+    width: 100%;
+  /*  max-height: 500px; /**/
+    background-color: #2e2626af; /* Adds contrasting background color around single iamge*/
+    border: 1px solid rgba(110, 110, 110, 0.445);
+    border-radius: 0.5rem;
+  
+    object-fit: contain;
+    overflow: hidden; /* hide spillover if needed */
+} 
+  
+.image-container img {
+    height: 100%; 
+    max-width: 100%; 
+}
+
+
+/* Centers and contains actual post image in all gallery/image containers */
+.post-image  { 
+    max-height: 500px;
+    max-width: 100%; 
+    object-fit: contain;
+  
+    display: block;       /* avoid inline gaps */
+    margin: auto auto;       /* horizontally centers img*/
+}
+  
+  
+/*** PREV/NEXT button styling for gallery ***/
+  
+/* GENERAL styling for both prev/next buttons */
+.prev, .next { 
+  
+    cursor: pointer;    /* 'pointer' to click on arrow */
+    position: absolute; /* enables buttons to 'float' on image edges */
+  
+    top: 50%;     /*top and tranform helps vertically center arrow */
+    transform: translateY(-50%); 
+  
+    color: white;   /* Arrows are white and bold */
+    font-weight: bold;
+    font-size: 2rem;
+  
+    padding: 0 0.45rem; /*padding and bg color around arrows */
+    background-color: rgba(0, 0, 0, 0.4);
+}
+  
+/* SPECIFIC styling for both prev/next buttons */
+.prev {
+    border-radius: 0px 7px 7px 0px; 
+    left: 0px; 
+}
+.next {
+    border-radius: 7px 0px 0px 7px; 
+    right: 0px;
+} 
+  
+.prev:hover, .next:hover { /* Styling for hovering on prev/next buttons */
+      background-color: rgba(0,0,0,0.8);
+      transition: background-color 0.3s ease;
+}
+  
+/* STYLING for container of indicator orbs*/
+.orbs { 
+      position: absolute; /* Used to help move 'orbs' to bottom edge of image */
+      bottom: 10px;       /* margin from image bottom*/
+      
+      display: flex; /* used to vertically center orbs in orbs container */
+  
+      left: 50%;                      /* center from left */
+      transform: translateX(-50%);    /* shift back half width for perfect center */
+  
+      background-color: rgba(73, 73, 73, 0.692); /* background around */
+      border-radius: 1rem;
+      padding: 6px 6px;
+      z-index: 3;
+}
+  
+/* ALL STYLING for the orb indicators themselves */
+.orb, .orb-active {
+      cursor: pointer; /* Highlight click on orb to switch images */
+  
+      height: 20px; /* For styling orb shape*/
+      width: 20px;
+      margin: 0 2px;
+      border-radius: 50%;
+  
+      display: inline-block; /* orb display and visual transition*/
+      transition: background-color 0.6s ease;
+}
+    
+.orb { background-color: #717171; } /* unselected orb*/
+  
+.orb-active, .orb:hover { background-color:  #bbb; } /* selected or hovered orb */
+
+/* Finally, add 'fade' effect when switching images in gallery */
+.fade { 
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+@keyframes fade {
+    from {opacity: .4}
+    to   {opacity:  1}
+}
+
+
+/***********************************************************************************************************/
+/***********************************************************************************************************/
+/************ STYLING for the video containers (for both Reddit and external embeds) ***********************/
+/***********************************************************************************************************/
+/***********************************************************************************************************/
+
+.video-container { /* Style the video container */
+
+    width: 100%;   /* Fits, with some white space, in parent post element */
+    height: auto;
+  
+    display: flex;  /* Centers video/image(s) inside container horizontally */
+    justify-content: center;
+  
+    margin: 1rem auto 0 auto; /* Horizontally centers THIS container itself. */
+}
+
+.video-container { /* Background color container around video */
+    background-color: #161616af; /* Adds background color for space around video */
+    border: 1px solid rgba(15, 15, 15, 0.596);
+    border-radius: 0.5rem;
+  
+    max-height: 500px; /* Max height constraint (prevent videos from being over 500px tall when displayed) */
+    align-items: center;
+    overflow: hidden; /* Clip overflow if needed */
+}
+  
+/*.post-vid { 
+
+/* Centers and contains video inside parent .video-container */
+.reddit-video {
+    width: 100%;           /* fill container width */
+    height: auto;          /* maintain aspect ratio */
+    max-height: 500px;     /* cap at 500px */
+    object-fit: contain;   /* contains object in parent container */
+    border-radius: 0.5rem; 
+    /*display: block; /**/
+}
+
+/* Styling for video posts that use external embedded vids */
+.embedded-video-wrapper {
+    width: 100%;
+    max-width: 720px;     /* modify later */
+    aspect-ratio: 16 / 9; /* modify alter */
+    margin: 0 auto;
+    position: relative;
+}
+  
+.embedded-video iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    border: none;
+}
+  
+
+/***********************************************************************************************************/
+/***********************************************************************************************************/
+/************* STYLING for the link containers (for holding embbed external links) *************************/
+/***********************************************************************************************************/
+/***********************************************************************************************************/
+
+.link-container { /* same as previous containers */
+        width: 100%;   /* Fits, with some white space, in parent post element */
+        height: auto;
+      
+        display: flex;  /* Centers video/image(s) inside container horizontally */
+        justify-content: center;
+      
+        margin: 1rem auto 0 auto; /* Horizontally centers THIS container itself. */       
+}
+
+.link-preview {
+    margin: auto;
+}
+
+.link-box {
+    display: flex;
+    flex-direction: row;
+}
+
+.link-domain {
+    color: #5c6c74;
+}
+
+.link-button {
+    border: 1px solid rgba(180, 180, 180, 0.849);
+    border-radius: 0.5rem;
+    align-items: center;
+    justify-content: center; 
+}
