@@ -17,11 +17,7 @@ const App = () => {
             <SearchHeader/>
         </div>
         <div className="menu-plus-posts">
-         {/* <SubredditsMenu setSubRedditUrl={setSubRedditUrl} /> */}
-          {/*<SubredditsMenu />*/}
           <SubRedditsMenu setSubRedditUrl={setSubRedditUrl} />
-         {/* <PostsBody subRedditUrl={subRedditUrl} /> */}
-          {/* <PostsBody /> */}
           <PostsBody subRedditUrl={subRedditUrl} />
         </div>
         </>

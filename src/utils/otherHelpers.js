@@ -1,5 +1,6 @@
 
 
+// 
 export function timeAgo(unixTime) { // function converts unitTime (seconds) into 
     const seconds = Math.floor(Date.now() / 1000) - unixTime;
   
@@ -35,5 +36,4 @@ export function timeAgo(unixTime) { // function converts unitTime (seconds) into
     const years = Math.floor(days / 365); // Otherwise, convert and floor days to years
     return  `${years} year${years === 1 ? '' : 's'} ago`; // return 'year(s) ago'
     
-  }
-  
+}

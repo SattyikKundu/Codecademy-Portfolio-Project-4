@@ -4,19 +4,15 @@ import { useRef } from "react";    //
 import * as dashjs from "dashjs";  // import 'dashjs' library as object in order to handle 
                                    // .mpd video clips, which contain BOTH video and audio.
 
-import './mediaHolder.css';
+//import './mediaHolder.css';
+import './mediaStyles.css';
 
-//export const VideoHolder = ({props}) => { // Pass video url so it can be rendered
-
-export const VideoHolder = ({postType, video}) => { 
-
- //   const {postType, video} = props; // extract from props
+export const VideoHolder = ({postType, video}) => { // Pass video url so it can be rendered
 
     const videoRef = useRef(null);  // Created mutable reference to <video> element in DOM.
                                     // React will assign  <video> element  to 'videoRef.current' 
                                     // via ref={videoRef} in <video> right before rendering.
-
-
+                                    
     useEffect(() => {
         if (!videoRef.current || !video) return; // If no videoRef or video data, stop useEffect early
 
@@ -61,8 +57,11 @@ export const VideoHolder = ({postType, video}) => {
                 />
         )}
         {/* Below embeds external video (like YouTube, etc.) */}
-        {(postType==='hosted:video' && video?.embedHTML) && (
-          <div className="embedded-video-wrapper">
+        {(postType==='rich:video' && video?.embedHtml) && (
+          <div 
+          className="embedded-video-wrapper"
+          style={{aspectRatio:`${video.width}/${video.height}`}}
+          >
               <div 
                 className="embedded-video"
                 dangerouslySetInnerHTML={{ __html: video.embedHtml }}

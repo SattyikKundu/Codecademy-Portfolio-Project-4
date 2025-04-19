@@ -1,16 +1,10 @@
 import React from "react";
 
-import './mediaHolder.css';
+//import './mediaHolder.css';
+import './mediaStyles.css';
 
-//export const LinkHolder = ({props}) => { // Pass video url so it can be rendered
-
-export const LinkHolder = ({linkPreview}) => {
-
-    //const {postType, link} = props; // extract from props
-//    const {linkPreview} = props; // extract from props
-
-//    const openUrl = (linkUrl) => { window.open(linkUrl.String(), '_blank')}
-
+export const LinkHolder = ({linkPreview}) => {  // Pass linkPreview object so it can be rendered
+ 
     return (
         <div className="link-container">
             <div className="link-preview">
@@ -24,14 +18,16 @@ export const LinkHolder = ({linkPreview}) => {
                 <div className="link-domain">
                     {linkPreview.domain}
                 </div>
-                <div className="link-button">
-                <a href={linkPreview.url} target="_blank" rel="noopener noreferrer">Open</a>
-                </div>
+                <a className="link-button" 
+                     href={linkPreview.url} 
+                     target="_blank" 
+                     rel="noopener noreferrer"
+                >
+                    Open
+                </a>
             </div>
         </div>
     )
-
-
 }
 
 export default LinkHolder;

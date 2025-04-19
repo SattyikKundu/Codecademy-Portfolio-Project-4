@@ -28,8 +28,6 @@
   } 
   
 .gallery-container img { /* Ensure that nested <img> will scale to parent .gallery-container */
-    /*max-height: 100%;
-    max-width: 100%; */
     height: 100%; 
     max-width: 100%; 
     overflow: hidden;
@@ -45,21 +43,22 @@
     border-radius: 0.5rem;
   
     object-fit: contain;
-    overflow: hidden; /* hide spillover if needed */
+    /*overflow: hidden; /* hide spillover if needed */
 } 
   
 .image-container img {
-    height: 100%; 
-    max-width: 100%; 
+    max-height: 400px; /* Prevents image from being too tall */
+    max-width: 100%;   /* scales image to prevent exceeding container width*/
 }
 
 
 /* Centers and contains actual post image in all gallery/image containers */
 .post-image  { 
-    max-height: 500px;
-    max-width: 100%; 
-    object-fit: contain;
+/*    max-height: 500px; 
+      max-width: 100%; 
+      object-fit: contain; */
   
+
     display: block;       /* avoid inline gaps */
     margin: auto auto;       /* horizontally centers img*/
 }
@@ -165,18 +164,16 @@
     border: 1px solid rgba(15, 15, 15, 0.596);
     border-radius: 0.5rem;
   
-    max-height: 500px; /* Max height constraint (prevent videos from being over 500px tall when displayed) */
+    max-height: 400px;/*500px; /* Max height constraint (prevent videos from being over 500px tall when displayed) */
     align-items: center;
     overflow: hidden; /* Clip overflow if needed */
 }
-  
-/*.post-vid { 
 
 /* Centers and contains video inside parent .video-container */
 .reddit-video {
     width: 100%;           /* fill container width */
     height: auto;          /* maintain aspect ratio */
-    max-height: 500px;     /* cap at 500px */
+    max-height: 400px;/*500px;     /* cap at 500px */
     object-fit: contain;   /* contains object in parent container */
     border-radius: 0.5rem; 
     /*display: block; /**/
@@ -184,20 +181,13 @@
 
 /* Styling for video posts that use external embedded vids */
 .embedded-video-wrapper {
-    width: 100%;
-    max-width: 720px;     /* modify later */
-    aspect-ratio: 16 / 9; /* modify alter */
-    margin: 0 auto;
     position: relative;
 }
   
 .embedded-video iframe {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100% !important;
-    height: 100% !important;
-    border: none;
+    width: 100%;
+    height: 100%;
 }
   
 
@@ -207,32 +197,111 @@
 /***********************************************************************************************************/
 /***********************************************************************************************************/
 
-.link-container { /* same as previous containers */
-        width: 100%;   /* Fits, with some white space, in parent post element */
-        height: auto;
+.link-container { /* simlar to previous containers */
+        width: 80%;   /* Fits, with some white space, in parent post element */
+        /*height: auto; */
       
-        display: flex;  /* Centers video/image(s) inside container horizontally */
-        justify-content: center;
+        display: flex;  /*flex layout with childs in column */
+        flex-direction: column;
       
-        margin: 1rem auto 0 auto; /* Horizontally centers THIS container itself. */       
+        margin: 1rem auto 0 auto; /* Horizontally centers THIS container itself;
+                                     And some margin from top. */
+
+        border-radius: 2rem; /* border styling */
+        border: 3px solid rgba(0, 0, 0, 0.3) ;
+        background-color: #456f85; /* combines with partly opaque border*/        
+        overflow: hidden; /* Keeps image corners out of sight*/  
+
 }
 
 .link-preview {
-    margin: auto;
+    width: 100%; /* link preview image container matches 
+                    parent container width */
+    max-height: 400px;/*500px;/**/
+}
+
+.link-preview img {
+    width: 100%;     /* keeps img within parent container */
+    display: block;  /* removes awakward spacing between .link-preview 
+                        and .link-box components */
 }
 
 .link-box {
-    display: flex;
+    height: 35px;      /* height of link info box*/
+    width: 100%;       /* matches parent width*/
+    padding: 0.5rem 0; /* pads top and bottom of link-box */
+
+    display: flex;     /* child items are place in row (next to each other) */
     flex-direction: row;
+    justify-content: space-between;/* ensures space between items 
+                                      (used in conjuction with child item margins) */
+    align-items: center; /* vertically centers items */
+
+    background-color: rgba(172, 172, 172, 0.92); /* semi-transparent background */
 }
 
 .link-domain {
-    color: #5c6c74;
+    margin-left: 10%; /* 10% of link-box width distance 
+                         from left edge (for responsiveness)*/    
+
+    font-size: 1.2rem; /* text/font styling*/
+    color: #273035;
+    font-weight: 500;
 }
 
 .link-button {
-    border: 1px solid rgba(180, 180, 180, 0.849);
-    border-radius: 0.5rem;
-    align-items: center;
-    justify-content: center; 
+    margin-right: 10%;   /* 10% of link-box width distance 
+                            from right edge (for responsiveness)*/    
+
+    background-color: rgb(206, 206, 206); /* button color*/
+    padding: 0.3rem 0.3rem; /* adds to button size */
+
+    border-radius: 1.75rem; /* button border styling */
+    border: 2px solid #161924d8; 
+    box-shadow: 0px 1px 3px rgb(32, 32, 32);
+
+    color: black;       /* button text color/styling */
+    font-size: 1.2rem;
+    font-weight: 500;
+    text-decoration: none; /* no default underline from links */
+}
+
+.link-button:hover{
+    cursor: pointer;                        /* pointer cursor on hover */
+    color: rgb(211, 211, 211);            /* button text color on hover */
+    background-color: rgb(41, 41, 41);    /* button color on hover */
+    box-shadow: 0px 0px 5px rgb(0, 0, 0); /* show around button for emphasis on hover*/
+}
+
+.link-button:active {
+    transform:scale(0.9); /* shrinks button on click for press effect*/
+}
+
+/***********************************************************************************************************/
+/***********************************************************************************************************/
+/************* STYLING external embedded link NOT found via post_hint='link' *******************************/
+/***********************************************************************************************************/
+/***********************************************************************************************************/
+
+.external-embedded-link {
+
+    /* Url's font styling */
+    font-size: 1.5rem;        
+    color: rgb(76, 135, 212);
+    font-weight: bold;
+
+    /* Margins above/below url text */
+    margin: 1rem auto;
+
+    /* Text wrapping and overflow handling  */
+    white-space: nowrap;     /* prevent url wrapping */
+    overflow: hidden;        /* hide overflow of url link text */
+    text-overflow: ellipsis; /* show "..." at the end of overflowing url link */
+
+    cursor: pointer;   /* Shows that link is clickable */
+}
+
+.external-embedded-link:hover { /* styling on hover */
+    color: rgb(197, 40, 118);
+    text-decoration: underline;
 }

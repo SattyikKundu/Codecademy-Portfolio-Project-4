@@ -1,13 +1,11 @@
-import React, { useLayoutEffect } from "react";
+import React from "react";
 import { useEffect } from "react"; // enable creating 'side-effects'
 import { useRef } from "react";    // .....
 import { useState } from "react";  // tracks and manages local component states 
 
 import './mediaStyles.css';
 
-//export const ImageHolder = ({props}) => {
-    export const ImageHolder = ({postType, images}) => {
-    //const {postType, images} = props; // extract from props
+export const ImageHolder = ({postType, images}) => {
 
     /* If multiple images are provided via props, they will be presented as a carousel */
     const [index, setIndex] = useState(0); // stores index value of images array
@@ -22,7 +20,7 @@ import './mediaStyles.css';
     }
 
     /* Local states to keep track of with default values */
-    const [maxHeight, setMaxHeight] = useState(500);      // Set max height of image(s) to fit container
+    const [maxHeight, setMaxHeight] = useState(400);//useState(500);      // Set max height of image(s) to fit container
     const [displayValue, setDisplayValue] = useState(''); // Set display visiblity if there are OR aren't any images  
     const [aspectratio, setAspectRatio] = useState(1);    // Sets aspect ratio of container to maintain carousel container's shape
 
@@ -47,7 +45,8 @@ import './mediaStyles.css';
                 const validHeights = images.map(img => img.height).filter(Boolean); // filters out all falsy/invalid image heights
 
                 const max = Math.max(...validHeights); // gets max. out of all heights
-                setMaxHeight(max < 500 ? max: 500);    //save calculated max if under 500px
+                //setMaxHeight(max < 500 ? max: 500);    
+                setMaxHeight(max < 400 ? max: 400);   //save calculated max if under 400px
 
                 const containerWidth = containerRef.current?.clientWidth || 0; // gets container width
                 setAspectRatio(containerWidth/maxHeight);   // sets width-height aspect ratio
@@ -59,7 +58,8 @@ import './mediaStyles.css';
                 const containerWidth = containerRef.current?.clientWidth || 0; // gets container's width via containerRef
 
                 if (imgHeight > imgWidth) { // if height > width, it's a 'tall' image 
-                    setMaxHeight(500);      // prevent tall image from going past 500px height 
+                    //setMaxHeight(500);      
+                    setMaxHeight(400);  // prevent tall image from going past 500px height 
                     //setAspectRatio(containerWidth/maxHeight); // aspect ratio to keep container shape
                 }
                 if(imgWidth >= imgHeight){ 
@@ -68,7 +68,8 @@ import './mediaStyles.css';
                     const aspect = imgHeight/imgWidth;
                     const scaledHeight = aspect * containerWidth;
                     //setMaxHeight(scaledHeight < 500 ? scaledHeight: 500);
-                    setMaxHeight(500);
+                    //setMaxHeight(500);
+                    setMaxHeight(400);
                     //setAspectRatio(containerWidth/scaledHeight);
                 }
         }
