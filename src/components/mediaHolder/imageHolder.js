@@ -3,7 +3,7 @@ import { useEffect } from "react"; // enable creating 'side-effects'
 import { useRef } from "react";    // .....
 import { useState } from "react";  // tracks and manages local component states 
 
-import './mediaStyles.css';
+import './stylesHolder.css';
 
 export const ImageHolder = ({postType, images}) => {
 

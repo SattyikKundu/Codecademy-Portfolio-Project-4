@@ -1,0 +1,71 @@
+/* General styling for container of all comments */
+.comments-container {
+    width: 100%;
+    height: auto;
+}
+
+.comment {
+    display: flex; /* Nested items in column direction*/
+    flex-direction: column;
+    max-width: 100%;
+
+    margin: 0.33rem auto; /* Styling and shape of comment box*/
+    padding: 0.5rem 0.5rem;
+    background-color: rgb(224, 224, 224);
+    border-radius: 0.25rem 0.25rem 0.25rem 1rem;
+}
+
+/**************************************************************************************/
+/********** Below series of classes style the comment author info box *****************/ 
+/**************************************************************************************/
+
+.comment-info { /* general styling info for class that holds all author info */
+    display: flex;
+    flex-direction: row;  
+    max-width: 100%; 
+    gap: 8px;              /* Gap between items*/
+    margin-bottom: 0.4rem; /* underneath space from comment text */
+}
+
+.comment-info .author { /* holds author icon and name*/
+
+    display: flex; /* row orientation and 10px gap between icon and name*/
+    flex-direction: row; 
+    gap: 10px; 
+}
+
+.author .icon{  /* Styling for container holding icon image*/
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
+.author .icon img{ /* Stylig of icon image itself*/
+    width: 100%;
+    height: 100%; 
+    object-fit: cover;
+    transform: scale(1.5);
+    transform-origin: center;
+}
+
+.author .name{ /* Comment author's name styling */
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    color: #3d5af1;
+    align-self: center; /*vertically center text*/
+}
+
+.comment-time { /*styles location of comment posting time*/
+    margin-left: 1.2rem;
+    align-self: center;
+}
+
+/***************************************************************************/
+/***************************************************************************/
+/***************************************************************************/
+
+.comment-text { /* left margin to align comment's text with comment author */
+    margin-left: 2.15rem; 
+}

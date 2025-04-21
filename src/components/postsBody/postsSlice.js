@@ -37,8 +37,9 @@ export const getPosts = createAsyncThunk('posts/getPosts',
 
                 /* #2 Use getComments() function (from later in file) to extract all comments
                       using the posts' permalink. Comments are stored in an array.  */
-                const comments = await getComments(data.permalink); 
+                //const comments = await getComments(data.permalink); 
 
+                //console.log('Post title: ',data.title,', Comments:',comments);
 
                 /* #3: Now obtain posts's image(s) url, width, and height from metadata.
                        For multiple images, data is stored in 'media_metadata' property while
@@ -294,7 +295,7 @@ export const getPosts = createAsyncThunk('posts/getPosts',
                     author:     child.data.author,    // post title (note: there's no avatar icon found in json)
                     created:    child.data.created,   // time of post's creation (in unix Time)
                     ups:        child.data.ups,       // post upvotes
-                    permalink:  child.data.permalink, // stores posts's permalink (if needed later)
+                    permalink:  child.data.permalink, // stores post's permalink (used later for getting comments)
                     text:       child.data.selftext || "",  // If there's accompanying text within post 
 
                     // Media data
@@ -305,7 +306,7 @@ export const getPosts = createAsyncThunk('posts/getPosts',
 
                     // Rest of data for handling comments
                     showComments:    false, // used to toggle if comments is visible or not
-                    comments:     comments, // stores comments array variable here
+                    //comments:     comments, // stores comments array variable here
                     loadingComments: false, // is comment loading or not..
                     errorComments:   false  // is there error in retrieving comments.. 
                 };

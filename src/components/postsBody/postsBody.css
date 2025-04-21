@@ -1,11 +1,16 @@
+/******************************************************************************************/
+/******************** General posts styling ***********************************************/
+/******************************************************************************************/
+
 .all-posts {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* All posts align vertically*/
+
     width: 50%;
-    height: 91vh;    /* ensured vertical scrolling height within view port*/
+    height: 91vh; /* ensured vertical scrolling height within view port*/
 
     flex-grow: 1;
-    overflow-y: auto;   /* Adds vertical scroll if menu exceeds page*/
+    overflow-y: auto; /* Adds vertical scroll if menu exceeds page*/
     overflow-x: hidden;
 
     align-items: center; /* Center post in middle vertically*/
@@ -16,12 +21,12 @@
 
 .post-wrapper { /* Styles shape of .post and uses flex-column for vertical alignment of items */
     width: 68%;
-    margin: 1.5rem auto; /* Horizontally centers and spaces 1.5rem between posts*/
+    margin: 1.5rem auto; /* Horizontally centers and spaces 1.5rem (vertically) between posts*/
 
     /* Shadows styling  around each post */
    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, 
-   rgba(17, 17, 26, 0.3) 0px 8px 24px, 
-   rgba(17, 17, 26, 0.2) 0px 16px 48px; 
+               rgba(17, 17, 26, 0.3) 0px 8px 24px, 
+               rgba(17, 17, 26, 0.2) 0px 16px 48px; 
 
     display: flex;
     flex-direction: column;
@@ -35,15 +40,19 @@
     margin: 1rem auto;
 }
 
-/********* Header info on Post ***********/
+/******************************************************************************************/
+/********* Header Info on Post (above post title) *****************************************/
+/******************************************************************************************/
 
-.post-info, .user-info {
+.post-info { /**/
     display: flex;
     flex-direction: row;
 }
 
 .user-info {
-    gap: 5px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
 }
 
 .avatar-icon {
@@ -53,14 +62,11 @@
     border-radius: 50%;
     overflow: hidden;
     position: relative;
-    /*
-    justify-content: center;
-    align-items: center;*/
 }
 
 .avatar-icon img {
     width: 100%;
-    height: 100%; /*auto;/**/
+    height: 100%; 
     object-fit: cover;
     transform: scale(1.5);
     transform-origin: center;
@@ -70,8 +76,7 @@
     font-weight: bold;
     font-size: large;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #0d54a0; /*rgb(86, 124, 207);/**/
-/*    justify-self: center; */
+    color: #0d54a0; 
     align-self: center; /*vertically center text*/
 }
 
@@ -80,35 +85,37 @@
     align-self: center;
 }
 
-/*****************************************/
+/******************************************************************************************/
+/********* General styling of rest (of each post's) of post components ********************/
+/******************************************************************************************/
 
-.post h2 {
+.post h2 { /* Styling for post title*/
     width: 100%;
     margin: 1rem auto 0 auto;
     border-bottom: 2px solid rgba(172, 172, 172, 0.692); 
 }
 
-.post-vid {
+.post-vid { /* Used to hold video clips (from Reddit hosted or external(like YouTube)). */
     width: 100%;
     height: auto;
 }
 
-.post-img {
+.post-img {  /* Used to hold images (from single images to gallery). */
     width: 100%;
     height: auto;
 }
 
-.gallery-unavailable {
+.gallery-unavailable {  /* Holds notification message if image gallery is unavailab.e*/
     width: 100%;
     font-size: 3rem;
-    padding: 2rem 0;
+    padding: 5rem 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
     background-color: grey;
     margin: 1rem auto;
 }
 
-.body-text {
+.body-text { /* Holds main post text*/
     margin: 1rem auto 0 auto;
     padding-bottom: 1rem;
     width: 100%;
@@ -124,7 +131,24 @@
     margin:0
 }
 
-.up-votes {
+/******************************************************************************************/
+/************* General styling of bottom/footer of each post ******************************/
+/******************************************************************************************/
+
+.post-footer { /* Styling and display of post footer elements */
+    width: 100%;
+    margin: 0.5rem auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.post-footer .up-votes { /* Styles the upvote number of post */
     margin-left: 1.5rem;
     margin: 1rem auto 1rem auto;
 }
+
+.comment-box { /* This holds the comments for the post */
+    width: 100%;
+    height: auto;
+}
+

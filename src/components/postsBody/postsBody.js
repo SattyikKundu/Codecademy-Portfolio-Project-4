@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {useEffect } from "react";
 import { useSelector, useDispatch  } from "react-redux";
 import ReactMarkdown from 'react-markdown'; // used to handle and render markdown text 
@@ -7,11 +7,14 @@ import ReactMarkdown from 'react-markdown'; // used to handle and render markdow
 import { getPosts } from "./postsSlice.js"; // asyncThunk function that retrieves posts based on subreddit url 
                                             // through the 'posts' slice.
 
-import VideoHolder from "./mediaHolder/videoHolder.js";
-import ImageHolder from "./mediaHolder/imageHolder.js";
-import LinkHolder  from "./mediaHolder/linkHolder.js";
+import { timeAgo } from "../../utils/otherHelpers.js"; // converts unix time to 'seconds ago', 'minutes ago', etc...
 
-import { timeAgo } from "../../utils/otherHelpers.js";
+import VideoHolder from "../mediaHolder/videoHolder.js"; //
+import ImageHolder from "../mediaHolder/imageHolder.js"; //
+import LinkHolder  from "../mediaHolder/linkHolder.js";  // 
+
+import PostComments from "../comments/comments.js";
+
 
 import './postsBody.css';
 
@@ -21,6 +24,33 @@ const PostsBody = ({ subRedditUrl }) => {
     const posts  = useSelector(state => state.posts.posts);
     const status = useSelector(state => state.posts.status);
     const error  = useSelector(state => state.posts.error);
+
+
+    /* Below useState() stores permalinks of each post together with a true/false
+     * statement identifying if a posts's comment box is open or closed.
+     *   Example :
+     *   commentBox = {
+     *      "/r/Home/comments/abc123": true, <== comment box for this post's permalink is open
+     *      "/r/Home/comments/xyz456": false, <== this comment box is closed
+     *   }
+     */
+    const [openComments, setOpenComments] = useState({}); 
+
+    const toggleComments = (permalink) => {
+        setOpenComments(
+            (currentState) => {                     // extract from current version/state of 'openComments'
+                const updated = { ...currentState}; // save shallow copy of previous openComments
+
+
+                /* Below, toggle the associated true/false value for the permalink.
+                 * Note that when a post's permalink is added to state for first time,
+                 * it starts as undefined. Then when an undefined is toggled (!undefined),
+                 * the posts's permalink as a key is then associated with 'true' (hence opening comments).
+                 */
+                updated[permalink] = !currentState[permalink]; 
+                return updated;                  // return updated {} as new state for setOpenComments
+        });
+    }
 
     const dispatch = useDispatch();
 
@@ -121,7 +151,22 @@ const PostsBody = ({ subRedditUrl }) => {
                                 }}
                             ><ReactMarkdown>{post.text}</ReactMarkdown> 
                             </div >
-                            <div className="up-votes">{post.ups}</div>
+                            <div className="post-footer">
+                                <div className="up-votes">{post.ups}</div>
+                                <div className="comment-icon" 
+                                     onClick={() => toggleComments(post.permalink)}
+                                >
+                                    Click Here to open/close comments..
+                                </div>
+                            </div>
+                            <div 
+                                className="comment-box"
+                                style={{ // Comment box opens or closes
+                                    display: openComments[post.permalink] ? 'block': 'none' 
+                                }}    
+                            >
+                                <PostComments permalink={post.permalink} />
+                            </div>
                         </div> 
                     </div>
                 )

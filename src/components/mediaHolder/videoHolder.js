@@ -4,8 +4,7 @@ import { useRef } from "react";    //
 import * as dashjs from "dashjs";  // import 'dashjs' library as object in order to handle 
                                    // .mpd video clips, which contain BOTH video and audio.
 
-//import './mediaHolder.css';
-import './mediaStyles.css';
+import './stylesHolder.css';
 
 export const VideoHolder = ({postType, video}) => { // Pass video url so it can be rendered
 
