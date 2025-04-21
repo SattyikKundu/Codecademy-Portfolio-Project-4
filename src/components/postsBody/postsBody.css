@@ -140,14 +140,71 @@
     margin: 0.5rem auto;
     display: flex;
     flex-direction: row;
+    justify-content: space-between; /* spaces items across full width of container*/
 }
+
+/******************************************************************************************/
+/***** Below covers styling of the upvote/downvote numbers and circle buttons**************/
+/******************************************************************************************/
 
 .post-footer .up-votes { /* Styles the upvote number of post */
-    margin-left: 1.5rem;
-    margin: 1rem auto 1rem auto;
+     
+    display: flex; /* Like and dislike buttons in row orientation */
+    flex-direction: row;
+
+    align-items: center; /* vertically centers items*/
+    background-color: rgb(226, 226, 226);
+
+    border-radius: 1rem; /* Border and spacing around upvote/downvote buttons */
+    gap: 6px;
+    padding: 0.3rem 0.35rem;
+
+    cursor: default; /*default cursor unless over upvote/downvote buttons */
 }
 
-.comment-box { /* This holds the comments for the post */
+/* Custom styling of buttons on hover and click */
+.circle-up, .circle-down { font-size: 22px; } /* define size of upvote/downvote buttons */ 
+
+.circle-up:hover { color: rgb(20, 158, 20); cursor: pointer; } /* Button colors on hover */
+.circle-down:hover { color: rgb(250, 56, 56); cursor: pointer; }
+
+.circle-up.upvoted   {color: rgb(20, 158, 20);} /* Button colors on active/clicked (handled in postsBody.js)*/
+.circle-down.downvoted {color: rgb(250, 56, 56);}
+
+.circle-up:active ,.circle-down:active { transform: scale(0.85); } /* Button shrink on press*/
+
+/******************************************************************************************/
+/***** Below covers styling of comments number and comments box toggle icon ***************/
+/******************************************************************************************/
+
+.comments-toggle { /* Styling, sizing, and shaping of toggle-icon */
+    display: flex; /* row orientation of items*/
+    flex-direction: row;
+
+    gap: 6px; /* Border, styling, and spacing around comments toggle button */
+    background-color: rgb(226, 226, 226);
+    padding: 0.2rem 0.5rem;
+    border-radius: 1rem;
+
+    align-items: center; /*Vertical alignment of elements*/
+
+    cursor: pointer;
+}
+.comments-toggle:hover{ /* style on hover and click */
+    background-color: rgb(145, 145, 145);
+    color:beige;
+}
+.comments-toggle.opened{ /* Button color when comments opened (handled in postsBody.js)*/
+    background-color: rgb(145, 145, 145);
+    color:beige;
+}
+.comments-toggle:active{ /* button shrink on click*/
+    transform: scale(0.9);
+}
+
+
+/* This container holds the comments for the post */
+.comment-box { 
     width: 100%;
     height: auto;
 }

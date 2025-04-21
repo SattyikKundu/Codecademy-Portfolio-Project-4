@@ -11,8 +11,6 @@ const SubRedditsMenu = ({setSubRedditUrl}) => {
 
     // Track currently selected Sub Reddit
     const [selected, setSelected] = useState('/r/Home/'); // sets default subReddit to 'Home' subreddit
-    
-    //const [selected, setSelected] = useState('/r/PeterExplainsTheJoke/'); // go up menu list...
 
     const subReddits = useSelector(state => state.menu.subReddits);// import states from menuSlice
     const status     = useSelector(state => state.menu.status);

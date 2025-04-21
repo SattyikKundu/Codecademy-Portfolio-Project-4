@@ -297,6 +297,7 @@ export const getPosts = createAsyncThunk('posts/getPosts',
                     ups:        child.data.ups,       // post upvotes
                     permalink:  child.data.permalink, // stores post's permalink (used later for getting comments)
                     text:       child.data.selftext || "",  // If there's accompanying text within post 
+                    num_comments: child.data.num_comments, 
 
                     // Media data
                     images:     images,      // save images [] here

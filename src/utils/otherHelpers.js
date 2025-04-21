@@ -1,7 +1,8 @@
 
 
-// 
-export function timeAgo(unixTime) { // function converts unitTime (seconds) into 
+// BELOW function converts creation time (seconds) int '..seconds ago', '..minutes ago',etc..
+//export function timeAgo(unixTime) { 
+export const timeAgo = (unixTime) => {
     const seconds = Math.floor(Date.now() / 1000) - unixTime;
   
     if (seconds < 60){ // If under 60, return 'seconds ago'
@@ -36,4 +37,13 @@ export function timeAgo(unixTime) { // function converts unitTime (seconds) into
     const years = Math.floor(days / 365); // Otherwise, convert and floor days to years
     return  `${years} year${years === 1 ? '' : 's'} ago`; // return 'year(s) ago'
     
+}
+
+// This function formats, rounds, and condenses large numbers (ex: 23435 => 23.4k )
+export const numberFormatter = (num) => {
+    return (
+        (Math.abs(num) > 999 )  
+        ? (Math.sign(num) * ((Math.abs(num)/1000).toFixed(1)) + 'k')
+        : Math.sign(num)*Math.abs(num)
+    )
 }
