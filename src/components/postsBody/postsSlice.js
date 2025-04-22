@@ -324,6 +324,7 @@ export const getPosts = createAsyncThunk('posts/getPosts',
     action in order to add comments array([])for each post object 
 ************************************************************************************/
 
+/*
 const getComments = async (permaLink) => {
     const commentsData = await RedditAPIcalls.getPostComments(permaLink); // gets all comments based on post's permaLink
 
@@ -335,7 +336,7 @@ const getComments = async (permaLink) => {
         }
     ));
     return postComments; // return array of comments
-}
+}*/
 
 
 /***************************************************************************************************************/
@@ -347,16 +348,16 @@ const getComments = async (permaLink) => {
 const postSlice = createSlice({
     name: "posts",
     initialState: { // 'store' for this slice
-        posts:   [],
-        error:   false,
-        status: 'idle',
-        searchTerm: '',
-        subReddit_PermaLink: '/r/Home/'
+        posts:   [],                    // all subreddit posts go here
+        error:   false,                 // status/state of error
+        status:  'idle',                // stores status
+        searchTerm: '',                 // used to store search Terms to filter subreddit posts 
+        subReddit_PermaLink: '/r/Home/' // stores subreddit permalink (default is '/r/Home/')
     },
     reducers: { // function to interact with slice's store
-        setPosts(state, action) {
-            state.posts = getPosts(action.payload); // <= THIS triggers extraReducer below
-        },
+        //setPosts(state, action) {
+        //    state.posts = getPosts(action.payload); // <= THIS triggers extraReducer below
+        //},
         getAllPosts(state) { // gets stored posts
             if(state.posts) {
                 return state.posts
@@ -366,8 +367,8 @@ const postSlice = createSlice({
             state.searchTerm = action.payload;
         },
         getSearchTerm(state) { // returns stored search term
-            if(state.posts) {
-                return state.posts;
+            if(state.posts!==null || state.posts!=='') {
+                return state.searchTerm;
             }
         },
         setSubReddit_Permalink(state, action) { // sets permalink for current selected SubReddit

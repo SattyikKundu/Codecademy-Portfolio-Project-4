@@ -1,8 +1,7 @@
 
 .search-header {
 
-    top:0; /* used to remove white space*/
-    left:0;
+    top:0; left:0; /* used to remove white space from top-left*/
 
     height: 55px;/*10vh; /* height just matches with subreddit menu */
     /*display: block; /**/
@@ -10,6 +9,126 @@
     position: fixed; /* Enables search Bar to float */
     z-index: 10;     /* floats search bar above below components*/
     width: 100%;     /* search bar header matches screen width */
-    background-color: white;
-    border-bottom: 2px solid grey;
+    background-color: rgb(255, 186, 129);
+    box-shadow: 0 3px 10px rgba(46, 46, 46, 0.5);
+
+
+    display: flex;   /* Needs for centering child components/items */
+    justify-content: space-between; /* ensure spacing between elements via flex */
+}
+
+.reddit-logo {
+    margin-top: auto; /* sets margin from top*/
+    display: flex;
+    flex-direction: row;
+
+}
+
+
+
+.icon img {
+    border-radius: 50%;
+    background-color: beige;
+    width:  2.8rem;
+    height: 2.8rem;
+}
+
+.logo-name {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: bold;
+    font-size: 2rem;
+    text-align: center;
+}
+.logo-name::after {
+    content:'Minimal';
+    color: blue;
+}
+
+/*************************************************************************************/
+/***** Styling for Search Box Area (current subreddit, text box, and button) *********/
+/*************************************************************************************/
+
+.search-box-area {
+    display: flex; /* Flex display and row orientation*/
+    flex-direction: row;
+
+    height: 2rem; /* height of search-box*/
+
+    align-self: center; /* vertically centers area (on flex) */
+    width: auto;        /* adjusts to content */
+
+    border-radius: 1.5rem; /* shadow wraps found search box area */
+    box-shadow: -1px 1px 6px rgba(46, 46, 46, 0.5);
+}
+
+
+.search-box-area .current-subReddit {
+
+    display: flex; /* Uses flex to horizontally & vertically 
+                      center current subreddit name/permalink */
+    align-items: center;
+    justify-content: center;
+
+    border-right: 0; /* Border and background styling*/
+    border: 1px solid #cccccc; 
+    border-radius: 1.5rem 0 0 1.5rem;
+    background-color: #cccccc;
+
+    padding-left: 1rem; /* Ensure subbreddit name fits container */
+    padding-right: 0.5rem;
+    width:fit-content; 
+    
+    font-size:larger; /* Subreddit name styling*/
+    font-weight: bold;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.search-box-area .search-input-box {
+    min-width: 50px; /* minimum-text area width */
+    border-left: 0; /* border styling of text box */
+    border-right: 0;
+    border-top: 1px solid  #cccccc; 
+    border-bottom: 1px solid  #cccccc; 
+}
+
+.search-box-area .search-input-box:focus {
+    outline: none;   /* Removes the black browser-default outline on focus */
+} 
+
+.search-box-area button { /* Styling of submit search button */
+    border-radius: 0 1.5rem 1.5rem 0;
+    border-left: 0;
+    border: 1px solid  #cccccc; 
+    cursor: pointer;
+}
+
+/*************************************************************************************/
+/***** Styling for Clear Search Button (empties search and returns all posts) ********/
+/*************************************************************************************/
+.clear-search {
+    margin-right: 5%; /* ALTER LATER.....*/
+    height: 2rem; /* Shape and colors of clear-search button*/
+    border-radius: 1.5rem; 
+    border: 1px solid #cccccc;
+    background-color: #cccccc;
+
+    box-shadow: -1px 1px 8px rgba(46, 46, 46, 0.5);
+
+    font-weight: bold; /* Styling of button text font */
+    font-size: 1rem;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    align-self: center; /*Vertical centering of button*/
+}
+
+.clear-search:hover {
+    border: 1px solid #afafaf;
+    background-color: #afafaf;
+    color:beige;
+    cursor: pointer;
+}
+
+.clear-search:active {
+    cursor: pointer;
+    transform: scale(0.9);
 }

@@ -1,5 +1,4 @@
-import React from "react";          
-import { useState, useEffect} from "react";
+import React, { useState, useEffect} from "react";
 import { useSelector, useDispatch } from 'react-redux';
 
 import {getAllSubReddits}   from './menuSlice.js';
@@ -7,7 +6,7 @@ import RedditAPIcalls from "../../utils/redditAPIcalls/redditAPIcalls";
 
 import './subredditsMenu.css';
 
-const SubRedditsMenu = ({setSubRedditUrl}) => {
+const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink}) => {
 
     // Track currently selected Sub Reddit
     const [selected, setSelected] = useState('/r/Home/'); // sets default subReddit to 'Home' subreddit
@@ -20,6 +19,8 @@ const SubRedditsMenu = ({setSubRedditUrl}) => {
 
     useEffect(()=>{ 
 
+        setSubPermalink(selected); // send selected subReddit to App
+
         const asyncFetch = async () => {
             setSubRedditUrl(RedditAPIcalls.getFullSubRedditUrl(selected)); // Stores url of default Subreddit 
             dispatch(getAllSubReddits()); // runs getSubReddits() and stores subReddit values into state 
@@ -29,6 +30,8 @@ const SubRedditsMenu = ({setSubRedditUrl}) => {
 
     const handleClick = (subRedditUrl) => {
         setSelected(subRedditUrl);
+
+        setSubPermalink(subRedditUrl); // sends selected/current permalink (i.e '/r/Home') back to App
 
         /* Used 'subRedditUrl' instead of 'selected' since getFullSubRedditUrl() is 
            asynchronous and 'selected' may not be updated by time of click */

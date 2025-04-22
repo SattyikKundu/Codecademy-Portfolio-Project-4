@@ -10,14 +10,18 @@ import './App.css';
 const App = () => {
 
     const [subRedditUrl, setSubRedditUrl] = useState(''); // tracks and stores current subReddit and its url
+    const [subPermalink, setSubPermalink] = useState('');
 
     return(
         <>
         <div className="top">
-            <SearchHeader/>
+            <SearchHeader subPermalink={subPermalink} />
         </div>
         <div className="menu-plus-posts">
-          <SubRedditsMenu setSubRedditUrl={setSubRedditUrl} />
+          <SubRedditsMenu 
+            setSubRedditUrl={setSubRedditUrl} 
+            setSubPermalink={setSubPermalink} 
+          />
           <PostsBody subRedditUrl={subRedditUrl} />
         </div>
         </>

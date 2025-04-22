@@ -8,11 +8,9 @@ import ReactMarkdown from 'react-markdown'; // used to handle and render markdow
 import { getPosts } from "./postsSlice.js"; // asyncThunk function that retrieves posts based on subreddit url 
                                             // through the 'posts' slice.
 
+import { timeAgo, numberFormatter} from "../../utils/otherHelpers.js"; // helps format creation time(seconds) and large numbers
 
-// imports helper functions to format creation time(seconds) and large numbers
-import { timeAgo, numberFormatter} from "../../utils/otherHelpers.js"; 
-
-import VideoHolder from "../mediaHolder/videoHolder.js"; // Import various media handler functions/components
+import VideoHolder from "../mediaHolder/videoHolder.js"; // Import various media handling components
 import ImageHolder from "../mediaHolder/imageHolder.js"; 
 import LinkHolder  from "../mediaHolder/linkHolder.js";   
 
@@ -25,9 +23,23 @@ import './postsBody.css'; // styling file
 
 const PostsBody = ({ subRedditUrl }) => {
 
-    const posts =useSelector(state => state.posts.posts); // imported states from 'posts' slice
-    const status=useSelector(state => state.posts.status);
-    const error =useSelector(state => state.posts.error);
+    const posts      = useSelector(state => state.posts.posts); // imported states from 'posts' slice
+    const status     = useSelector(state => state.posts.status);
+    const error      = useSelector(state => state.posts.error);
+    const searchTerm = useSelector(state => state.posts.searchTerm);
+
+    const filtered_Posts = ( // function returns filtered posts
+
+        (searchTerm.length > 0 && searchTerm !=='') ? //
+            posts.filter( // function filters subreddit posts based on search term
+                (post) => (
+                post.title.includes(searchTerm) ||
+                post.author.includes(searchTerm) ||
+                post.text.includes(searchTerm)
+            ))
+            : posts // otherwise return all posts.  
+    );    
+
 
     /* Below useState() stores permalinks of each post together with a true/false
      * statement identifying if a posts's comment box is open or closed.
@@ -118,10 +130,18 @@ const PostsBody = ({ subRedditUrl }) => {
         )
     }
 
-    if(status === 'succeeded' && posts && posts.length>0) {
+    if(status=== 'succeeded' && filtered_Posts && filtered_Posts===0) {
+        return (
+            <p>No results match your search query. Try again....</p>
+        )
+    }
+
+ //   if(status === 'succeeded' && posts && posts.length>0) {
+      if(status === 'succeeded' && filtered_Posts && filtered_Posts.length>0) {
         return (
             <div className="all-posts">
-            {posts.map((post)=>{
+         {/*}   {posts.map((post)=>{ */}
+            {filtered_Posts.map((post)=>{
                 return (
                     <div className="post-wrapper">
                         <div className="post" key={post.permalink}>

@@ -10,13 +10,15 @@
     /*width: 280px;    /* width and height of sub-Reddits menu*/
 
     padding-top: 55px;/*8.5vh; /* ensures no overlap with above search bar header */
-    height: 90vh;    /* ensured vertical scrolling height within view port 
+    height: 91vh;    /* ensured vertical scrolling height within view port 
                         (leave space at top for search bar header */
     position: fixed; /* keeps menu floating on left */ 
     left: 0;         /* removes white space from left */
 
     display: flex;   /* flex and column display makes menu vertical */
     flex-direction: column;
+
+    box-shadow: 1px 2px 10px rgba(46, 46, 46, 0.5);;
 }
 
 .subreddits-menu h3 {
