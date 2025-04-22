@@ -48,7 +48,7 @@ const PostComments = ({permalink}) => {
                                     </div>
                                     <div className="comment-time">{timeAgo(comment.created)}</div>
                                 </div>
-                                <div className="comment-text">{comment.text}</div>
+                                <div className="comment-text"><ReactMarkdown>{comment.text}</ReactMarkdown></div>
                             </div>
                             {/* Below recursively runs renderComments() again to render nested reply comments */}
                             {

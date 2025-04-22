@@ -5,8 +5,15 @@
 
     background-color: #fff;
 
-    width: 280px;    /* width and height of sub-Reddits menu*/
-    height: 91vh;    /* ensured vertical scrolling height within view port*/
+    width: 100%; /* Revise attempt to make menu responsive if necessary */
+    max-width: 280px;
+    /*width: 280px;    /* width and height of sub-Reddits menu*/
+
+    padding-top: 55px;/*8.5vh; /* ensures no overlap with above search bar header */
+    height: 90vh;    /* ensured vertical scrolling height within view port 
+                        (leave space at top for search bar header */
+    position: fixed; /* keeps menu floating on left */ 
+    left: 0;         /* removes white space from left */
 
     display: flex;   /* flex and column display makes menu vertical */
     flex-direction: column;
@@ -20,6 +27,8 @@
     width: 100%;        
     overflow-y: auto;   /* Adds vertical scroll if menu exceeds page*/
     overflow-x: hidden;
+
+    flex-grow: 1;
 }
 
 .subreddit-item, .subreddit-item-clicked { /* Styliing makes icon and sub-Reddit name placed horizontally 

@@ -6,13 +6,21 @@
     display: flex;
     flex-direction: column; /* All posts align vertically*/
 
-    width: 50%;
-    height: 91vh; /* ensured vertical scrolling height within view port*/
+    /*width: 50%; /**/
+    max-width: calc(100% - 280px); /* ✅ Adjusts max-width based on sidebar */
+    min-width: 320px;              /* ✅ Prevents shrinking too small */
 
-    flex-grow: 1;
-    overflow-y: auto; /* Adds vertical scroll if menu exceeds page*/
+    /*height: 91vh; /* ensured vertical scrolling height within view port
+    // now removed to ensure full scrolling
+    */
+    padding-top: 9vh;
+    padding-left: 280px;
+
+    /*flex-grow: 1;/**/
+    /*overflow-y: auto; /* Adds vertical scroll if menu exceeds page*/
     overflow-x: hidden;
 
+    flex-grow: 1;
     align-items: center; /* Center post in middle vertically*/
 
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font style and size */
@@ -20,11 +28,17 @@
 }
 
 .post-wrapper { /* Styles shape of .post and uses flex-column for vertical alignment of items */
-    width: 68%;
+    
+    /*width: 68%; /**/ /* ⛔ Removed percent width to prevent compounding with parent */
+    width: 100%;          /* ✅ Use full width of .all-posts */
+    max-width: 720px;     /* ✅ Prevents post from stretching too far */
+    min-width: 380px;     /* ✅ Maintains readability on smaller screens */
+
+
     margin: 1.5rem auto; /* Horizontally centers and spaces 1.5rem (vertically) between posts*/
 
     /* Shadows styling  around each post */
-   box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, 
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, 
                rgba(17, 17, 26, 0.3) 0px 8px 24px, 
                rgba(17, 17, 26, 0.2) 0px 16px 48px; 
 

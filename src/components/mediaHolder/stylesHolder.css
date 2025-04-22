@@ -173,10 +173,10 @@
 .reddit-video {
     width: 100%;           /* fill container width */
     height: auto;          /* maintain aspect ratio */
-    max-height: 400px;/*500px;     /* cap at 500px */
+    max-height: 400px;     /* cap at 400px */
     object-fit: contain;   /* contains object in parent container */
     border-radius: 0.5rem; 
-    /*display: block; /**/
+    display: block; /* removes odd thin white space(s) around video */
 }
 
 /* Styling for video posts that use external embedded vids */
@@ -217,7 +217,7 @@
 .link-preview {
     width: 100%; /* link preview image container matches 
                     parent container width */
-    max-height: 400px;/*500px;/**/
+    max-height: 400px;
 }
 
 .link-preview img {

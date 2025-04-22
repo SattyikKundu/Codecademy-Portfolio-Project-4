@@ -1,0 +1,15 @@
+
+.search-header {
+
+    top:0; /* used to remove white space*/
+    left:0;
+
+    height: 55px;/*10vh; /* height just matches with subreddit menu */
+    /*display: block; /**/
+
+    position: fixed; /* Enables search Bar to float */
+    z-index: 10;     /* floats search bar above below components*/
+    width: 100%;     /* search bar header matches screen width */
+    background-color: white;
+    border-bottom: 2px solid grey;
+}
