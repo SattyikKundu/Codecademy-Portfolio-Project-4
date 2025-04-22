@@ -3,21 +3,17 @@
 /******************************************************************************************/
 
 .all-posts {
-    display: flex;
-    flex-direction: column; /* All posts align vertically*/
+    display: flex; /* Enables posts to align vertically*/
+    flex-direction: column; 
 
-    /*width: 50%; /**/
-    max-width: calc(100% - 280px); /* ✅ Adjusts max-width based on sidebar */
-    min-width: 320px;              /* ✅ Prevents shrinking too small */
+    width: 100%; 
+    min-width: 320px;             /* Prevents shrinking too small */
+    max-width: calc(100% - 26vw); /* Adjusts max-width based on sidebar (which has width of 25+1vw)  */
+    
+    padding-top: 60px;/*9vh;  /* leaves space for search header bar matching its height (which has fixed-position) */
+    padding-left: 26vw;/* Gives space to sidebar, which has 25+1vw width 
+                          (+1 due to default 8px <body> padding removed from Chrome browser. */
 
-    /*height: 91vh; /* ensured vertical scrolling height within view port
-    // now removed to ensure full scrolling
-    */
-    padding-top: 9vh;
-    padding-left: 280px;
-
-    /*flex-grow: 1;/**/
-    /*overflow-y: auto; /* Adds vertical scroll if menu exceeds page*/
     overflow-x: hidden;
 
     flex-grow: 1;
@@ -29,27 +25,28 @@
 
 .post-wrapper { /* Styles shape of .post and uses flex-column for vertical alignment of items */
     
-    /*width: 68%; /**/ /* ⛔ Removed percent width to prevent compounding with parent */
-    width: 100%;          /* ✅ Use full width of .all-posts */
-    max-width: 720px;     /* ✅ Prevents post from stretching too far */
-    min-width: 380px;     /* ✅ Maintains readability on smaller screens */
+    display: flex; /* child items in column orientation */
+    flex-direction: column;
 
+    max-width: 720px; /* Prevents post from stretching too wide */
+    min-width: 310px; /* Maintains minimum width for small screen readability */
+    width: 96%;       /* Ensures that space exists on left/right edges of 
+                         post-wrapper within .all-posts when .post-wrapper under 720px */
+    height: auto; /* scales to changing width*/
 
     margin: 1.5rem auto; /* Horizontally centers and spaces 1.5rem (vertically) between posts*/
 
-    /* Shadows styling  around each post */
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, 
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px, /* Shadows styling around each post */ 
                 rgba(17, 17, 26, 0.3) 0px 8px 24px, 
                 rgba(17, 17, 26, 0.2) 0px 16px 48px; 
 
-    display: flex;
-    flex-direction: column;
-
-    height: auto;
-    border-radius: 1rem;
+    border-radius: 1rem; /* curves on posts' corners */
 }
 
-.post { /* Container with actual post content*/
+/*@media only screen and (max-width: 768px) { } */
+
+
+.post { /* Contains actual post content within .post-wrapper */
     width: 95%; 
     margin: 1rem auto;
 }
@@ -69,7 +66,7 @@
     gap: 8px;
 }
 
-.avatar-icon {
+.avatar-icon { /* Sizing and styling of avatar icon container */
     width: 2rem;
     height: 2rem;
     border: 1px solid rgba(0, 0, 0, 0.603);
@@ -78,15 +75,16 @@
     position: relative;
 }
 
-.avatar-icon img {
+.avatar-icon img { /*Styling of avatar icon image itself */
     width: 100%;
     height: 100%; 
-    object-fit: cover;
+
+    object-fit: cover; /* ensures img is zoomed in and contained within .avatar-icon container*/
     transform: scale(1.5);
     transform-origin: center;
 }
 
-.author-name {
+.author-name { /* styles post author's name */
     font-weight: bold;
     font-size: large;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -94,7 +92,7 @@
     align-self: center; /*vertically center text*/
 }
 
-.created-time {
+.created-time { /* styles post creation time */
     margin-left: 1.2rem;
     align-self: center;
 }

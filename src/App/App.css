@@ -1,7 +1,9 @@
-.menu-plus-posts {
-    width: 100%;
-    display: flex;
+.menu-plus-posts { 
+
+    display: flex; /* menu and post container in row orientation*/
     flex-direction: row;
 
-    /*padding-left: 280px;  /* ✅ Offset to make space for the fixed sidebar */
+    margin: 0; /* Removes margin/padding and fits parent container(<body>)*/
+    padding: 0 ;
+    width: 100%;
 }

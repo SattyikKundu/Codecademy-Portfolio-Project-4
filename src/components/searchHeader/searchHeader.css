@@ -1,10 +1,12 @@
+/*************************************************************************************/
+/************** General styling for Search Header Bar ********************************/
+/*************************************************************************************/
 
-.search-header {
+.search-header { /* General styling for eader bar*/
 
     top:0; left:0; /* used to remove white space from top-left*/
 
-    height: 55px;/*10vh; /* height just matches with subreddit menu */
-    /*display: block; /**/
+    height: 60px;/*10vh; /* height just matches with subreddit menu */
 
     position: fixed; /* Enables search Bar to float */
     z-index: 10;     /* floats search bar above below components*/
@@ -12,34 +14,37 @@
     background-color: rgb(255, 186, 129);
     box-shadow: 0 3px 10px rgba(46, 46, 46, 0.5);
 
-
     display: flex;   /* Needs for centering child components/items */
     justify-content: space-between; /* ensure spacing between elements via flex */
 }
 
-.reddit-logo {
+
+/*************************************************************************************/
+/************** Logo styling in Search Header Bar ************************************/
+/*************************************************************************************/
+
+.reddit-logo { /* logo container styling */
+    margin-left: 0.8vw;
     margin-top: auto; /* sets margin from top*/
     display: flex;
     flex-direction: row;
 
 }
 
-
-
-.icon img {
+.icon img { /*log image styling */
     border-radius: 50%;
     background-color: beige;
     width:  2.8rem;
     height: 2.8rem;
 }
 
-.logo-name {
+.logo-name { /* App/logo name styling */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bold;
     font-size: 2rem;
     text-align: center;
 }
-.logo-name::after {
+.logo-name::after { /* Adds styled text with ::after */
     content:'Minimal';
     color: blue;
 }
@@ -114,8 +119,8 @@
 
     box-shadow: -1px 1px 8px rgba(46, 46, 46, 0.5);
 
-    font-weight: bold; /* Styling of button text font */
-    font-size: 1rem;
+    font-size: 1rem;  /* Styling of button text font */
+    font-weight: bold;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
     align-self: center; /*Vertical centering of button*/

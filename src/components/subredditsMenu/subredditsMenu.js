@@ -58,7 +58,7 @@ const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink}) => {
                                     className="icon-img"
                                     style={{border: `3px solid ${subReddit.color}`}} 
                                     />
-                                <div>{subReddit.title}</div>
+                                <div className="subReddit-title">{subReddit.title}</div>
                                {/*} <div>{subReddit.url}</div> */}
                             </div>
                             );

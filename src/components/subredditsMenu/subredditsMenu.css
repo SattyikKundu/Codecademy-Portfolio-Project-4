@@ -1,16 +1,15 @@
 
 .subreddits-menu {
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Font style and size */
-    font-weight: 500;
-
+    font-weight: 500; /* Font style and size */
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+   
     background-color: #fff;
 
-    width: 100%; /* Revise attempt to make menu responsive if necessary */
-    max-width: 280px;
-    /*width: 280px;    /* width and height of sub-Reddits menu*/
+    width: 25vw; /* At 25% of viewport (responsive to viewport width changes) */
+    min-width: 200px; /* won't shrink below this */
 
-    padding-top: 55px;/*8.5vh; /* ensures no overlap with above search bar header */
-    height: 91vh;    /* ensured vertical scrolling height within view port 
+    padding-top: 60px;/*8.5vh; /* ensures no overlap with above search bar header, by matching it's height */
+    height: 90vh;    /* ensured vertical scrolling height within view port 
                         (leave space at top for search bar header */
     position: fixed; /* keeps menu floating on left */ 
     left: 0;         /* removes white space from left */
@@ -29,8 +28,6 @@
     width: 100%;        
     overflow-y: auto;   /* Adds vertical scroll if menu exceeds page*/
     overflow-x: hidden;
-
-    flex-grow: 1;
 }
 
 .subreddit-item, .subreddit-item-clicked { /* Styliing makes icon and sub-Reddit name placed horizontally 
@@ -39,14 +36,16 @@
     align-items: center; /* centers text horizontally */
     border-bottom: 2px solid rgba(182, 182, 182, 0.603); /* bottom border to visually divide*/
 
-    cursor: pointer; 
 
-    padding: .7rem;   /* spacing between item containers */  
-    transition: .3s;  /* 0.3s until highlight */ 
-    width: 100%;      /* matches parent container's width*/
+    padding: 0.7rem 0 0.7rem 0.7rem;   /* padding around subreddit options (except for right) */ 
+
+    transition: .25s;  /* 0.25s until highlight */ 
+    
 
     display: flex;     /* flex row ensures text next to icon */
     flex-direction: row;
+
+    cursor: pointer; /* pointer cursor on hover*/
 }
 
 .subreddit-item {         /* Transparent when unselected */
@@ -65,7 +64,10 @@
 .icon-img {
     width: 30px;          /* icon sizing */
     height: 30px;
-    border-radius: 50%;   /*make icon border circular*/
+    border-radius: 50%;   /* make icon border circular */
     margin-right: 0.5rem; /* space from text */
 }
 
+.subReddit-title {
+    font-size: 1.75vw; /* Adjusted font width to fit sub Reddit menu options container */
+}
