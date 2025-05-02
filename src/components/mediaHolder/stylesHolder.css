@@ -37,13 +37,13 @@
 /* STYLING if container holds 1 image*/
 .image-container { 
     width: 100%;
-  /*  max-height: 500px; /**/
+    /* max-height handled in imageHolder.js*/
     background-color: #2e2626af; /* Adds contrasting background color around single iamge*/
     border: 1px solid rgba(110, 110, 110, 0.445);
     border-radius: 0.5rem;
   
     object-fit: contain;
-    /*overflow: hidden; /* hide spillover if needed */
+    overflow: hidden; /* hide spillover if needed, especially for image corners in this rounded container frame */
 } 
   
 .image-container img {
@@ -127,7 +127,7 @@
       transition: background-color 0.6s ease;
 }
     
-.orb { background-color: #717171; } /* unselected orb*/
+.orb { background-color: #424242; } /* unselected orb*/
   
 .orb-active, .orb:hover { background-color:  #bbb; } /* selected or hovered orb */
 
@@ -164,7 +164,7 @@
     border: 1px solid rgba(15, 15, 15, 0.596);
     border-radius: 0.5rem;
   
-    max-height: 400px;/*500px; /* Max height constraint (prevent videos from being over 500px tall when displayed) */
+    max-height: 400px; /* Max height constraint (prevent videos from being over 500px tall when displayed) */
     align-items: center;
     overflow: hidden; /* Clip overflow if needed */
 }

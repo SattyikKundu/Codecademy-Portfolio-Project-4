@@ -1,15 +1,16 @@
 import React, { useState, useEffect} from "react";
 import { useSelector, useDispatch } from 'react-redux';
 
-import {getAllSubReddits}   from './menuSlice.js';
+import {getAllSubReddits} from './menuSlice.js';
 import RedditAPIcalls from "../../utils/redditAPIcalls/redditAPIcalls";
 
 import './subredditsMenu.css';
 
-const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink}) => {
+//const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink, isMenuOpened, setIsMenuOpened}) => {
+const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink, isMenuOpened}) => {
 
     // Track currently selected Sub Reddit
-    const [selected, setSelected] = useState('/r/Home/'); // sets default subReddit to 'Home' subreddit
+    const [selected, setSelected] = useState('/r/Damnthatsinteresting/');//useState('/r/Home/'); // sets default subReddit to 'Home' subreddit
 
     const subReddits = useSelector(state => state.menu.subReddits);// import states from menuSlice
     const status     = useSelector(state => state.menu.status);
@@ -40,7 +41,10 @@ const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink}) => {
 
     return (
         // Return subreddits' params value in menu
-        <div className="subreddits-menu">
+        <div 
+            //className="subreddits-menu"
+            className={`subreddits-menu ${!isMenuOpened ? 'closed': ''}`}
+        >
             <h3>Subreddits</h3>
             <div className="subreddits-container">
                 {status === 'loading' && <h2>loading....</h2>}

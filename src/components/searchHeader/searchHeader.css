@@ -18,24 +18,30 @@
     justify-content: space-between; /* ensure spacing between elements via flex */
 }
 
+.buttons-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    align-items: center;
+}
+
 
 /*************************************************************************************/
 /************** Logo styling in Search Header Bar ************************************/
 /*************************************************************************************/
 
 .reddit-logo { /* logo container styling */
-    margin-left: 0.8vw;
-    margin-top: auto; /* sets margin from top*/
+    margin: auto auto 0.2rem 0.8vw; /* sets all margins */
     display: flex;
     flex-direction: row;
-
 }
 
-.icon img { /*log image styling */
+.icon img { /*logo/icon image styling */
     border-radius: 50%;
     background-color: beige;
     width:  2.8rem;
-    height: 2.8rem;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .logo-name { /* App/logo name styling */
@@ -49,6 +55,25 @@
     color: blue;
 }
 
+@media screen 
+and (max-width: 934px) { /* Wrap logo text to make more room */
+    .logo-name { 
+        display: flex;
+        flex-direction: column;
+        font-size: 1.1rem;
+        text-align: left;
+        margin-left: 2px;
+    }
+}
+
+@media screen 
+and (max-width: 690px) { /* Remove logo name text at <=690px */
+    .logo-name{
+        display: none;
+    }
+}
+
+
 /*************************************************************************************/
 /***** Styling for Search Box Area (current subreddit, text box, and button) *********/
 /*************************************************************************************/
@@ -61,6 +86,7 @@
 
     align-self: center; /* vertically centers area (on flex) */
     width: auto;        /* adjusts to content */
+    margin: auto;
 
     border-radius: 1.5rem; /* shadow wraps found search box area */
     box-shadow: -1px 1px 6px rgba(46, 46, 46, 0.5);
@@ -83,18 +109,49 @@
     padding-right: 0.5rem;
     width:fit-content; 
     
-    font-size:larger; /* Subreddit name styling*/
+    font-size: medium;/*larger; /* Subreddit name styling*/
     font-weight: bold;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+@media screen and (max-width: 768px) {
+    .search-box-area .current-subReddit {
+        font-size: small;/*medium; /* Subreddit name styling*/
+    }
+}
+
+@media screen and (max-width: 612px) { /* At this width, 'hide' current subreddit's name 
+                                          from search bar to save space*/
+    .search-box-area .current-subReddit {
+        max-width: 0;
+        opacity: 0;
+        padding: 0;
+        overflow: hidden;
+        border: none;
+    }
+    .search-input-box {
+        border-radius: 1rem 0 0 1rem;
+        padding-left: 1rem;
+    }
+}
+
 .search-box-area .search-input-box {
-    min-width: 50px; /* minimum-text area width */
+    width: 150px;       /* Search input box width */
+    padding: 0 0 0 0.7rem; /* keeps typing area from edges */
+
     border-left: 0; /* border styling of text box */
     border-right: 0;
     border-top: 1px solid  #cccccc; 
     border-bottom: 1px solid  #cccccc; 
 }
+
+@media screen 
+and (max-width: 370px) { /* Shrink text area to fit mobile screen sizes*/
+    .search-box-area .search-input-box {
+        width: 120px;
+    }
+}
+
 
 .search-box-area .search-input-box:focus {
     outline: none;   /* Removes the black browser-default outline on focus */
@@ -108,32 +165,111 @@
 }
 
 /*************************************************************************************/
+/************ Styling for Menu Opener/Closer Toggle button ***************************/
+/*************************************************************************************/
+
+@media screen 
+and (min-width: 768px) {  /* Menu toggle ONLY visble under 768px width */
+    .menu-toggle, .menu-toggle.closed {
+        display: none;
+    }
+}
+
+@media screen 
+and (max-width: 767px) { /* Styling for menu once visible under 768px width. */
+    .menu-toggle { /* menu toggle when opened */
+
+        display: flex; /* flex display so nested <span> can be centered*/
+        justify-content: center;
+        align-items: center;
+        position: relative; /* for for absolute postion centering of 'hamburger' symbol */
+
+        width: 2.5rem; /* menu-toggle button dimensions */
+        height: 2.5rem;
+        margin: auto;
+
+        font-size: 2rem; /* font styling */
+        color: black;
+        
+        text-align: center; /* centers text (horizontally) */
+
+        border-radius: 0.5rem; /* border styling*/
+        background-color: #cccccc;
+        border: 1px solid #7d7d7dc0;
+        box-shadow: 0px 1px 3px #5e5e5ec5;
+
+        cursor: pointer;
+    }
+    .menu-toggle:hover { /* hover style over opened menu button */
+        color: beige;
+        background-color: #888888;
+        border: 1px solid #7d7d7dc0;
+    }
+
+    .menu-toggle:active, .menu-toggle.closed:active { /* button shrinks on press */
+        transform: scale(0.9);
+    }
+
+    .menu-toggle span, 
+    .menu-toggle.closed span { /* centers hamburger symbol*/
+        position: absolute;
+        bottom: 0px;
+    }
+
+    .menu-toggle.closed { /* Additional styling when closed*/
+        background-color: #ff8e64;
+        border: 1px solid #ff631b;
+        box-shadow: 0px 1px 3px #8b510dc5;
+    }
+    .menu-toggle.closed:hover { /* When hovering over close menu button */
+        color: black;
+        background-color: #fa6f1e;
+        border: 1px solid #e24f0a;
+    }
+}
+
+
+/*************************************************************************************/
 /***** Styling for Clear Search Button (empties search and returns all posts) ********/
 /*************************************************************************************/
-.clear-search {
-    margin-right: 5%; /* ALTER LATER.....*/
+
+.clear-search { /* Styling of clear search button */
+    margin: auto; /* centering*/
+
     height: 2rem; /* Shape and colors of clear-search button*/
     border-radius: 1.5rem; 
     border: 1px solid #cccccc;
     background-color: #cccccc;
-
     box-shadow: -1px 1px 8px rgba(46, 46, 46, 0.5);
 
-    font-size: 1rem;  /* Styling of button text font */
+    font-size: medium;  /* Styling of button text font */
     font-weight: bold;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-    align-self: center; /*Vertical centering of button*/
+    white-space: nowrap; /* Prevents button name from wrapping */
+
+    align-self: center; /* Vertical centering of button */
 }
 
-.clear-search:hover {
+.clear-search::after {  /* Makes full 'Clear Search' term */
+    content: ' Search';
+}
+
+@media screen and (max-width: 420px) {  /* Removes word 'Search' from 'Clear Search' 
+                                           to just 'Clear' to save space on mobile sizes. */
+    .clear-search::after {
+        content:'';
+    }
+}
+
+.clear-search:hover { /*Styles button on hover */
     border: 1px solid #afafaf;
     background-color: #afafaf;
     color:beige;
     cursor: pointer;
 }
 
-.clear-search:active {
+.clear-search:active { /* styles button on press*/
     cursor: pointer;
     transform: scale(0.9);
 }

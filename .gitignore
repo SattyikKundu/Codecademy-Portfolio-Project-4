@@ -1,4 +1,4 @@
-## Ignore /node_module
+## Ignore /node_modules
 ## folder since it's too big for 
 ## uploading to github
 node_modules

@@ -17,8 +17,17 @@
     display: flex;   /* flex and column display makes menu vertical */
     flex-direction: column;
 
-    box-shadow: 1px 2px 10px rgba(46, 46, 46, 0.5);;
+    box-shadow: 1px 2px 10px rgba(46, 46, 46, 0.5); /* Shadow on right-edge to make menu 'pop' */
+
+    transition: transform 0.1s ease; /* For smooth transition of sliding menu (for < 768px width) */
+    z-index: 5; /* menu floats above posts but NOT above the header menu (in searchHeader.css)*/
 }
+
+.subreddits-menu.closed {
+    transform: translateX(-100%);
+}
+
+
 
 .subreddits-menu h3 {
     margin-left: 0.8rem; /* Subreddits menu header positioning*/
@@ -70,4 +79,13 @@
 
 .subReddit-title {
     font-size: 1.75vw; /* Adjusted font width to fit sub Reddit menu options container */
+}
+
+/* Fixes menu-font size to stop menu options text from shrinking due to 
+   .subreddits-menu { width: 25vw;..} making text too small. at under 800px screen width,
+   and to maintain consistency at 200px min-width of menu.  */
+@media screen and (max-width: 800px) {
+    .subReddit-title {
+        font-size: 0.86rem;   
+    }
 }

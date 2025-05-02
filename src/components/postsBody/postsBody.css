@@ -23,6 +23,15 @@
     font-size: 1rem;
 }
 
+@media screen and (max-width: 767px) { /*Removes padding when screen-width <768px*/
+    .all-posts {
+        max-width: 100%;
+        padding-left: 0; 
+        padding-right: 0;  
+    }
+} 
+
+
 .post-wrapper { /* Styles shape of .post and uses flex-column for vertical alignment of items */
     
     display: flex; /* child items in column orientation */
@@ -30,7 +39,7 @@
 
     max-width: 720px; /* Prevents post from stretching too wide */
     min-width: 310px; /* Maintains minimum width for small screen readability */
-    width: 96%;       /* Ensures that space exists on left/right edges of 
+    width: 90%;       /* Ensures that space exists on left/right edges of 
                          post-wrapper within .all-posts when .post-wrapper under 720px */
     height: auto; /* scales to changing width*/
 
@@ -43,7 +52,11 @@
     border-radius: 1rem; /* curves on posts' corners */
 }
 
-/*@media only screen and (max-width: 768px) { } */
+@media only screen and (max-width: 767x) { 
+    .all-posts {
+        padding-left: 0;   
+    }
+} 
 
 
 .post { /* Contains actual post content within .post-wrapper */

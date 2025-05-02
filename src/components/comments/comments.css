@@ -68,4 +68,9 @@
 
 .comment-text { /* left margin to align comment's text with comment author */
     margin-left: 2.15rem; 
+
+    /* Deal with long urls that break container*/
+    word-break: break-word;	    /* Allows long "words" (i.e. URLs) to break across multiple lines */
+    overflow-wrap: break-word;	/* Ensures browser breaks long inline content */
+    white-space: normal;	    /* Prevents text from staying on one long line */
 }
