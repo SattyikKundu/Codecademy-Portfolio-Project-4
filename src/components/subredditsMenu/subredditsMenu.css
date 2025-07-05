@@ -1,3 +1,6 @@
+/*********************************************************************************************************/
+/*************** Main styling for the sub-Reddits menu ***************************************************/
+/*********************************************************************************************************/
 
 .subreddits-menu {
     font-weight: 500; /* Font style and size */
@@ -23,14 +26,17 @@
     z-index: 5; /* menu floats above posts but NOT above the header menu (in searchHeader.css)*/
 }
 
-.subreddits-menu.closed {
-    transform: translateX(-100%);
-}
+.subreddits-menu.closed { transform: translateX(-100%);}
 
 
-
-.subreddits-menu h3 {
-    margin-left: 0.8rem; /* Subreddits menu header positioning*/
+#subreddits-header { /* Header of subReddits menu */
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    width: 100%;
+    font-size: 1.5rem;
+    background-color: beige;
+    text-indent: 0.8rem;
 }
 
 .subreddits-menu .subreddits-container { /* holds the subreddits menu items */
@@ -86,6 +92,37 @@
    and to maintain consistency at 200px min-width of menu.  */
 @media screen and (max-width: 800px) {
     .subReddit-title {
-        font-size: 0.86rem;   
+        font-size: 0.86rem; 
     }
 }
+
+@media screen and (max-width: 767px) { /* Adjust side menu width and font-size for tablet size */
+    .subReddit-title { 
+        font-size: clamp(0.875rem, 2.28vw, 1.15rem);
+    } 
+    .subreddits-menu {
+        width: 33vw !important;
+    }
+}
+
+@media screen and (max-width: 375px) { /* Menu takes full width for mobile screen size */
+    .subReddit-title { 
+        font-size: 1.5rem;
+    } 
+    .subreddits-menu {
+        width: 100vw !important;
+        min-width: none !important;
+    }
+}
+
+/*********************************************************************************************************/
+/************** Stylings for the Error and Loading notices components ************************************/
+/*********************************************************************************************************/
+
+.subReddits-error-notice { /* Basic styling for Error notice container */
+    display: flex;
+    flex-direction: column;
+    width: 94%;
+    border: 1px solid #bbbbbb;
+}
+

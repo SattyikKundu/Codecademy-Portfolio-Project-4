@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from "react";
+import { useState, useEffect} from "react";
 import { useSelector, useDispatch } from 'react-redux';
 
 import {getAllSubReddits} from './menuSlice.js';
@@ -38,6 +38,37 @@ const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink, isMenuOpened}) => {
         setSubRedditUrl(RedditAPIcalls.getFullSubRedditUrl(subRedditUrl)); 
     }
 
+
+    return (  // Return subreddits' params value in menu
+        <div className={`subreddits-menu ${!isMenuOpened ? 'closed': ''}`}>
+            <div id='subreddits-header'>Subreddits</div>
+            <div className="subreddits-container">
+                {status === 'loading' && <h2>loading....</h2>}
+                {status === 'failed' && <h2>Error is: {error}</h2>}
+                {(status === 'succeeded' && subReddits && subReddits.length>0)
+                ?subReddits.map((subReddit, idx) => {
+                    return (
+                            <div 
+                                key = {subReddit.title || idx}
+                                className={selected!==subReddit.url? "subreddit-item": "subreddit-item-clicked"}
+                                onClick={() => handleClick(subReddit.url)}
+                            >
+                                <img src={subReddit.iconUrl || 'images/no-image-icon.png'} 
+                                    alt={subReddit.title} 
+                                    className="icon-img"
+                                    style={{border: `3px solid ${subReddit.color}`}} 
+                                    />
+                                <div className="subReddit-title">{subReddit.title}</div>
+                            </div>
+                            );
+                    })
+                :null
+                }
+            </div>
+        </div>
+    );
+
+    /*
     return (
         // Return subreddits' params value in menu
         <div 
@@ -62,7 +93,7 @@ const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink, isMenuOpened}) => {
                                     style={{border: `3px solid ${subReddit.color}`}} 
                                     />
                                 <div className="subReddit-title">{subReddit.title}</div>
-                               {/*} <div>{subReddit.url}</div> */}
+                               {/*} <div>{subReddit.url}</div> //}
                             </div>
                             );
                     })
@@ -70,7 +101,7 @@ const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink, isMenuOpened}) => {
                 }
             </div>
         </div>
-    );
+    );*/
 };
 
 export default SubRedditsMenu;

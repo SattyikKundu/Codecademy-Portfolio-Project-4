@@ -120,7 +120,7 @@ const PostsBody = ({ subRedditUrl }) => {
     },[subRedditUrl]);
 
 
-    // used to keep loading screen running for testing
+    // USED to keep loading screen running for testing
     /*
     const [loading, setLoading] = useState(true);
     useEffect(() => { //
@@ -128,10 +128,11 @@ const PostsBody = ({ subRedditUrl }) => {
       return () => clearTimeout(timer);
     }, []); */
 
+
     const [loadingSize, setLoadingSize] = useState(100); // set dynamic loading size of  <PulseLoader /> component
 
     useEffect(() => { // useEffect for shrinking "loader" at under 375px;
-
+        
         const updateLoaderSize = () => { // listener function 
             const width = window.innerWidth; // get current viewport/window width
             if (width >= 375) {
@@ -141,14 +142,13 @@ const PostsBody = ({ subRedditUrl }) => {
                 setLoadingSize(75);
             } 
         };
-
         updateLoaderSize(); // Set on mount
         window.addEventListener("resize", updateLoaderSize); // "Listen" to screen size changes
         return () => window.removeEventListener("resize", updateLoaderSize); // remove listerner on un-mount
     }, []);
 
+    //if(loading) { // enable when testing loading notice
     if(status  === 'loading') { // whilst page is loading...
-    //if(loading) {
       return(
         <div className="all-posts">
             <div className="loader-notice">
