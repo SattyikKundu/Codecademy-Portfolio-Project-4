@@ -6,7 +6,6 @@ import RedditAPIcalls from "../../utils/redditAPIcalls/redditAPIcalls";
 
 import './subredditsMenu.css';
 
-//const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink, isMenuOpened, setIsMenuOpened}) => {
 const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink, isMenuOpened}) => {
 
     // Track currently selected Sub Reddit

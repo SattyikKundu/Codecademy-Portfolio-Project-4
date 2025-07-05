@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import {useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch  } from "react-redux";
 
 import ReactMarkdown from 'react-markdown'; // used to handle and render markdown text 
@@ -17,7 +16,9 @@ import LinkHolder  from "../mediaHolder/linkHolder.js";
 import PostComments from "../comments/comments.js"; // Import <PostComments> for hanlding each post's comments
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // used to import FontAwesomeIcons
-import { faCircleUp, faCircleDown, faMessage } from '@fortawesome/free-solid-svg-icons';
+import { faCircleUp, faCircleDown, faMessage, faBan, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+
+import { ClipLoader, RingLoader, PulseLoader, MoonLoader } from "react-spinners";
 
 import './postsBody.css'; // styling file
 
@@ -32,11 +33,16 @@ const PostsBody = ({ subRedditUrl }) => {
 
         (searchTerm.length > 0 && searchTerm !=='') ? //
             posts.filter( // function filters subreddit posts based on search term
-                (post) => (
-                post.title.includes(searchTerm) ||
-                post.author.includes(searchTerm) ||
-                post.text.includes(searchTerm)
-            ))
+                (post) => {
+                    const lowerSearch = searchTerm.toLowerCase(); // converts search term to lowercase
+                    return (
+                        // returned title, author, text to lower case to ensure 'case-insensitive' comparison
+                        post.title?.toLowerCase().includes(lowerSearch) ||
+                        post.author?.toLowerCase().includes(lowerSearch) ||
+                        post.text?.toLowerCase().includes(lowerSearch)
+                    );
+                }
+            )
             : posts // otherwise return all posts.  
     );    
 
@@ -114,33 +120,86 @@ const PostsBody = ({ subRedditUrl }) => {
     },[subRedditUrl]);
 
 
-    if(status  === 'loading') {
+    // used to keep loading screen running for testing
+    /*
+    const [loading, setLoading] = useState(true);
+    useEffect(() => { //
+      const timer = setTimeout(() => setLoading(false), 700000);
+      return () => clearTimeout(timer);
+    }, []); */
+
+    const [loadingSize, setLoadingSize] = useState(100); // set dynamic loading size of  <PulseLoader /> component
+
+    useEffect(() => { // useEffect for shrinking "loader" at under 375px;
+
+        const updateLoaderSize = () => { // listener function 
+            const width = window.innerWidth; // get current viewport/window width
+            if (width >= 375) {
+                setLoadingSize(100);
+            } 
+            else if (width < 375) {
+                setLoadingSize(75);
+            } 
+        };
+
+        updateLoaderSize(); // Set on mount
+        window.addEventListener("resize", updateLoaderSize); // "Listen" to screen size changes
+        return () => window.removeEventListener("resize", updateLoaderSize); // remove listerner on un-mount
+    }, []);
+
+    if(status  === 'loading') { // whilst page is loading...
+    //if(loading) {
+      return(
+        <div className="all-posts">
+            <div className="loader-notice">
+                <h2>Loading Reddit posts...</h2>
+                <PulseLoader size={loadingSize} color={'#797979'} />
+            </div>
+        </div>
+      );
+    }
+
+    if(status  === 'failed') { // If post retrieval failed...
         return(
           <div className="all-posts">
-            <h2>loading....</h2>
+            <div className="posts-error-notice">
+              <h2>
+                <FontAwesomeIcon 
+                    icon={faCircleExclamation} 
+                    style={{color:'red', 
+                        border: '1.5px solid black', 
+                        borderRadius: '50px'
+                    }}
+                />
+                {' '}Error is: {error}
+            </h2>
+              <span>If unable to fetch posts, it likely that you need to wait 10-15 minutes to reload page since Reddit API limits number of fetches at a time.</span>
+            </div>
           </div>
         )
     }
 
-    if(status  === 'failed') {
-        return(
-          <div className="all-posts">
-            <h2>Error is: {error}</h2>
+    if(status=== 'succeeded' && filtered_Posts && filtered_Posts.length===0) { // If there's 0 posts
+      return (
+        <div className="all-posts">
+          <div className="posts-error-notice">
+            <h2><FontAwesomeIcon 
+                        icon={faBan} 
+                        style={{color:'red', 
+                        border: '1.5px solid black', 
+                        borderRadius: '50px'
+                        }}
+                />{' '}No Posts found
+            </h2>
+            <span>Try a different search term OR select a subReddit.</span>
           </div>
-        )
+        </div>  
+      )
     }
 
-    if(status=== 'succeeded' && filtered_Posts && filtered_Posts===0) {
-        return (
-            <p>No results match your search query. Try again....</p>
-        )
-    }
-
- //   if(status === 'succeeded' && posts && posts.length>0) {
-      if(status === 'succeeded' && filtered_Posts && filtered_Posts.length>0) {
+    if(status === 'succeeded' && filtered_Posts && filtered_Posts.length>0) { // If total posts (filtered/unfiltered) > 0
         return (
             <div className="all-posts">
-         {/*}   {posts.map((post)=>{ */}
             {filtered_Posts.map((post)=>{
                 return (
                     <div className="post-wrapper">

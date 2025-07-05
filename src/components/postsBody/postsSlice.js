@@ -318,27 +318,6 @@ export const getPosts = createAsyncThunk('posts/getPosts',
     }
 )
 
-
-/***********************************************************************************
-    Below async function is used as part of the above asyncThunk 'posts/getPosts' 
-    action in order to add comments array([])for each post object 
-************************************************************************************/
-
-/*
-const getComments = async (permaLink) => {
-    const commentsData = await RedditAPIcalls.getPostComments(permaLink); // gets all comments based on post's permaLink
-
-    const postComments =  commentsData.data.children.map((child) => ( // returns array of comment objects for post
-        {
-            author:      child.data.author,     // post author
-            body:        child.data.body,       // post body/text
-            createdTime: child.data.created_utc // post creation time (will modify later)
-        }
-    ));
-    return postComments; // return array of comments
-}*/
-
-
 /***************************************************************************************************************/
 /***************************************************************************************************************/
 /******************* Below asycn thunk function returns all comments within a selected post ********************/
@@ -355,9 +334,6 @@ const postSlice = createSlice({
         subReddit_PermaLink: '/r/Home/' // stores subreddit permalink (default is '/r/Home/')
     },
     reducers: { // function to interact with slice's store
-        //setPosts(state, action) {
-        //    state.posts = getPosts(action.payload); // <= THIS triggers extraReducer below
-        //},
         getAllPosts(state) { // gets stored posts
             if(state.posts) {
                 return state.posts
