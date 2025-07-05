@@ -17,8 +17,7 @@ import PostComments from "../comments/comments.js"; // Import <PostComments> for
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; // used to import FontAwesomeIcons
 import { faCircleUp, faCircleDown, faMessage, faBan, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
-
-import { ClipLoader, RingLoader, PulseLoader, MoonLoader } from "react-spinners";
+import {PulseLoader } from "react-spinners";
 
 import './postsBody.css'; // styling file
 
@@ -132,7 +131,7 @@ const PostsBody = ({ subRedditUrl }) => {
     const [loadingSize, setLoadingSize] = useState(100); // set dynamic loading size of  <PulseLoader /> component
 
     useEffect(() => { // useEffect for shrinking "loader" at under 375px;
-        
+
         const updateLoaderSize = () => { // listener function 
             const width = window.innerWidth; // get current viewport/window width
             if (width >= 375) {
@@ -171,9 +170,9 @@ const PostsBody = ({ subRedditUrl }) => {
                         borderRadius: '50px'
                     }}
                 />
-                {' '}Error is: {error}
+                {' '}Error is: <span style={{color:'red'}}>{error}</span>
             </h2>
-              <span>If unable to fetch posts, it likely that you need to wait 10-15 minutes to reload page since Reddit API limits number of fetches at a time.</span>
+              <span>If unable to fetch posts, you likely need to wait 5-10 minutes to reload page since Reddit API limits number of fetches at a time.</span>
             </div>
           </div>
         )

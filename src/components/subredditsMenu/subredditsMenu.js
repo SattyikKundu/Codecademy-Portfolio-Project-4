@@ -4,12 +4,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import {getAllSubReddits} from './menuSlice.js';
 import RedditAPIcalls from "../../utils/redditAPIcalls/redditAPIcalls";
 
+import { SubRedditsErrorNotice, SubRedditsLoadingNotice } from "./menuNotices.js";
+
 import './subredditsMenu.css';
 
 const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink, isMenuOpened}) => {
 
     // Track currently selected Sub Reddit
-    const [selected, setSelected] = useState('/r/Damnthatsinteresting/');//useState('/r/Home/'); // sets default subReddit to 'Home' subreddit
+    //const [selected, setSelected] = useState('/r/Damnthatsinteresting/');//useState('/r/Home/'); // sets default subReddit to 'Home' subreddit
+    const [selected, setSelected] = useState('/r/Home/');
 
     const subReddits = useSelector(state => state.menu.subReddits);// import states from menuSlice
     const status     = useSelector(state => state.menu.status);
@@ -43,8 +46,8 @@ const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink, isMenuOpened}) => {
         <div className={`subreddits-menu ${!isMenuOpened ? 'closed': ''}`}>
             <div id='subreddits-header'>Subreddits</div>
             <div className="subreddits-container">
-                {status === 'loading' && <h2>loading....</h2>}
-                {status === 'failed' && <h2>Error is: {error}</h2>}
+                {status === 'loading' && <SubRedditsLoadingNotice/>}
+                {status === 'failed' && <SubRedditsErrorNotice error={error}/>}
                 {(status === 'succeeded' && subReddits && subReddits.length>0)
                 ?subReddits.map((subReddit, idx) => {
                     return (
