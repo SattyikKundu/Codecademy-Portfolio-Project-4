@@ -172,7 +172,7 @@ const PostsBody = ({ subRedditUrl }) => {
                 />
                 {' '}Error is: <span style={{color:'red'}}>{error}</span>
             </h2>
-              <span>If unable to fetch posts, you likely need to wait 5-10 minutes to reload page since Reddit API limits number of fetches at a time.</span>
+              <span>If unable to fetch posts, you likely need to wait at least 10-15 minutes to reload page since Reddit API limits number of fetches at a time.</span>
             </div>
           </div>
         )
