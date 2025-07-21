@@ -6,6 +6,18 @@ const handler = async (event, context) => {  // Define the Netlify serverless fu
       'https://www.reddit.com/subreddits.json' // URL to get list of popular subReddits
       // 'https://www.reddit.com/subreddits.json?limit=10' // Comment out above if you want to limit subReddits on left menu
     );
+
+    // Add this for debugging
+    console.log("🔥 RAW Reddit API Response:", JSON.stringify(response.data, null, 2));
+    const data = response.data;
+    if (!data?.data?.children || !Array.isArray(data.data.children)) {
+      console.warn("⚠️ Unexpected Reddit API structure(1)", data);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Unexpected Reddit API structure(1)' }),
+      };
+    }
+
     return {                                
       statusCode: 200,                     // If successful, return json object with HTTP 200 OK
       body: JSON.stringify(response.data), // Convert the Reddit API response to JSON string and return

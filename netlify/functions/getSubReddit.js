@@ -16,6 +16,29 @@ const handler = async (event) => {  // Define the Netlify serverless function ha
       `https://www.reddit.com${path}.json?raw_json=1` // `raw_json=1` only 'raw' json data is obtained 
                                                       // (need to get accurate media data from json data!)
     );
+
+    // 🔍 Debug log of full response
+    console.log("🔥 RAW Reddit API Response:", JSON.stringify(response.data, null, 2));
+
+    const data = response.data;
+
+
+    if (!Array.isArray(data) || data.length < 2){  // 🔒 Basic structure validation
+      console.warn("⚠️ Unexpected Reddit API structure (not an array or too short)(2):", data);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Unexpected Reddit API structure (not array or too short) (2)' }),
+      };
+    }
+    if (!data[1]?.data?.children){  // Optional deeper check on post + comments
+      console.warn("⚠️ Reddit response missing expected comments data at [1].data.children (2)", data);
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'Unexpected Reddit API structure (missing children array) (2)' }),
+      };
+    }
+
+
     return {
       statusCode: 200,                      // If successful, return HTTP 200
       body: JSON.stringify(response.data),  // Return Reddit's response as JSON
