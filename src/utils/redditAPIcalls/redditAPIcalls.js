@@ -61,16 +61,12 @@ const RedditAPIcalls = {
     return posts;
   },
 
-
-  async getPostComments(permalink) {  // get all posts's comments via post's permalink
-
-    // NOTE: 'permaLink.slice(0,-1)' excludes last 
-    //          character('/') from permaLink so '.json' can be appended 
-    const fullPostUrl = `https://www.reddit.com${permalink.slice(0, -1)}.json`; // Clean up permalink & build full Reddit API URL
-    const response = await fetch(fullPostUrl);
-    const post        = await response.json()
-    return post[1]; // NOTE: This data contains BOTH the post(post[0]) and its comments(post[1]).
-                    //       Since we only want the post's comments, we return 'post[1]'. 
+  async getPostComments(permalink) {                  // get all posts's comments via post's permalink
+    const encodedLink = encodeURIComponent(permalink); // for safely encoding URI component into URL without issues
+    const commentsRoute = `/api/comments?permalink=${encodedLink}`;
+    const response = await fetch(commentsRoute);
+    const postComments = response.json();
+    return postComments;
   }
 
 };
