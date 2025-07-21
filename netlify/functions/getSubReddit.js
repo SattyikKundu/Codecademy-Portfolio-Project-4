@@ -16,8 +16,11 @@ const handler = async (event) => {  // Define the Netlify serverless function ha
 
   try {
     const response = await axios.get(                 // Request JSON data for the given subreddit path
-      `https://www.reddit.com${path}.json?raw_json=1` // `raw_json=1` only 'raw' json data is obtained 
+      `https://www.reddit.com${path}.json?raw_json=1`, // `raw_json=1` only 'raw' json data is obtained 
                                                       // (need to get accurate media data from json data!)
+      { headers: {
+        'User-Agent': 'RedditMinimalApp/1.0 (+https://mini-reddit-clone.netlify.app)'
+      }}
     );
 
     // 🔍 Debug log of full response

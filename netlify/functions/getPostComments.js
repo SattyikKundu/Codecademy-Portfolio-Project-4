@@ -16,7 +16,11 @@ const handler = async (event) => { // Define the serverless function handler
 
     const redditUrl = `https://www.reddit.com${cleanedPermalink}.json`; // Full Reddit API URL for post comments
 
-    const response = await axios.get(redditUrl); // Make GET request to Reddit API to fetch post and its comments
+    const response = await axios.get(redditUrl,
+      {  headers: {
+        'User-Agent': 'RedditMinimalApp/1.0 (+https://mini-reddit-clone.netlify.app)'
+      }}
+    ); // Make GET request to Reddit API to fetch post and its comments
 
     return {  // Return only comments section (second item in response data array)
       statusCode: 200,
