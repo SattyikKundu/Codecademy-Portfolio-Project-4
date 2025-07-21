@@ -2,7 +2,7 @@
 const axios = require('axios');
 
 const handler = async () => {
-  console.info("🔍 Running Reddit debug test...");
+  console.log("🔍 Running Reddit debug test...");
 
   const url = 'https://www.reddit.com/r/javascript.json?raw_json=1';
 
@@ -29,7 +29,7 @@ const handler = async () => {
 
   for (let config of headersList) {
     try {
-      console.info(`🌐 Trying: ${config.name}`);
+      console.log(`🌐 Trying: ${config.name}`);
       const response = await axios.get(url, {
         headers: config.headers,
       });
@@ -44,7 +44,7 @@ const handler = async () => {
         }),
       };
     } catch (err) {
-      console.warn(`❌ Failed: ${config.name} → ${err.message}`);
+      console.log(`❌ Failed: ${config.name} → ${err.message}`);
     }
   }
 
