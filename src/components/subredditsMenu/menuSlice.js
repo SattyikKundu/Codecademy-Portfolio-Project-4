@@ -9,6 +9,13 @@ export const getAllSubReddits = createAsyncThunk('menu/getAllSubReddits', // lin
 
         try {
             const data = await RedditAPIcallsfrom.getSubReddits(); // get All subreddits from json (unable to add await?)
+
+            // Gracefully fails posts rendering to enable debugging.
+            if (!data?.data?.children || !Array.isArray(data.data.children)) {
+                console.warn("Invalid Reddit API response:", data);
+                return rejectWithValue("Unexpected Reddit API format");
+            }
+
             const subRedditsArray = data.data.children.map((child)=>( // returns array of menu item objects
                 { 
                     iconUrl: child.data.icon_img,
