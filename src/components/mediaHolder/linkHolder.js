@@ -1,5 +1,3 @@
-import React from "react";
-
 import './stylesHolder.css';
 
 export const LinkHolder = ({linkPreview}) => {  // Pass linkPreview object so it can be rendered

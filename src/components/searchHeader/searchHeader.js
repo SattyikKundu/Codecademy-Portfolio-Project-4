@@ -1,11 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import { useDispatch } from 'react-redux';
 import { setSearchTerm } from '../postsBody/postsSlice';
 
 import './searchHeader.css';
 
 const SearchHeader = ({subPermalink, isMenuOpened, setIsMenuOpened}) => {
-//const SearchHeader = ({subPermalink}) => {
 
     const [localInput, setLocalInput] = useState('');
 
@@ -22,7 +21,6 @@ const SearchHeader = ({subPermalink, isMenuOpened, setIsMenuOpened}) => {
     }
 
     const handleMenuToggle = () => {
-        // setIsMenuOpened(!isMenuOpened);
          setIsMenuOpened(prev => !prev); //toggles the previous isMenuOpenedValue
      }
 
@@ -63,6 +61,7 @@ const SearchHeader = ({subPermalink, isMenuOpened, setIsMenuOpened}) => {
                             type='text' 
                             value={localInput}
                             placeholder='Enter Search Here...'
+                            onKeyDown={(event) => event.key === 'Enter' && handleSubmit()}  // triggers search when ENTER pressed
                         />
                     <button type='button' onClick={handleSubmit}>🔍</button>
                 </div>

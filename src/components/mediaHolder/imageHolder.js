@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect } from "react"; // enable creating 'side-effects'
 import { useRef } from "react";    // .....
 import { useState } from "react";  // tracks and manages local component states 

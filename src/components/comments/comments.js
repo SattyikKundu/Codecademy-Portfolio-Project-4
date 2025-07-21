@@ -1,5 +1,5 @@
 import React from "react";
-import {useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector, useDispatch  } from "react-redux";
 import ReactMarkdown from 'react-markdown'; // used to handle and render markdown text 
                                             // to look like normal text in React app
@@ -27,6 +27,32 @@ const PostComments = ({permalink}) => {
             }
         },[permalink]);
 
+
+
+        const [baseIndent, setBaseIndent] = useState(40); // default for large screens
+
+        useEffect(() => { // Used to adjust 'width' of comments in post based on depth.
+                          // In smaller screens, indents are lower to make more space for comment text.
+
+            const handleResize = () => { // handles indentation of comment based on screen width.
+                const width = window.innerWidth;
+                if (width <= 480) {
+                    setBaseIndent(17.5); // mobile
+                } 
+                else if (width <= 768) {
+                    setBaseIndent(30);  // tablet
+                } 
+                else {
+                    setBaseIndent(40); // desktop (default)
+                }
+            };
+
+            handleResize(); // set on initial load
+            window.addEventListener("resize", handleResize);
+
+            return () => window.removeEventListener("resize", handleResize);
+        }, []);
+
         const renderComments = (comments) => { // function that returns comments rendered in html format
             return(
                 <div className="comments-container">
@@ -37,8 +63,12 @@ const PostComments = ({permalink}) => {
                                components to avoid unnecessary wrapper <div>s.
                                Usage: <React.Fragment> OR shorthand <> </> */
                             <React.Fragment>
-                            <div className="comment" key={comment.id} 
-                                style={{marginLeft: `${40*comment.depth}px`}}>
+                            <div 
+                                className="comment" 
+                                key={comment.id} 
+                                //style={{marginLeft: `${40*comment.depth}px`}}
+                                style={{marginLeft: `${baseIndent*comment.depth}px`}}
+                            >
                                 <div className="comment-info">
                                     <div className="author">
                                         <div className="icon">

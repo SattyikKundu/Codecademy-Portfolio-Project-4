@@ -1,4 +1,3 @@
-import React from "react";
 import { useEffect } from "react"; // enable creating 'side-effects'
 import { useRef } from "react";    // 
 import * as dashjs from "dashjs";  // import 'dashjs' library as object in order to handle 

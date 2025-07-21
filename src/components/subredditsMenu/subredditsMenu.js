@@ -49,8 +49,8 @@ const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink, isMenuOpened}) => {
                 {status === 'loading' && <SubRedditsLoadingNotice/>}
                 {status === 'failed' && <SubRedditsErrorNotice error={error}/>}
                 {(status === 'succeeded' && subReddits && subReddits.length>0)
-                ?subReddits.map((subReddit, idx) => {
-                    return (
+                    ?subReddits.map((subReddit, idx) => {
+                        return (
                             <div 
                                 key = {subReddit.title || idx}
                                 className={selected!==subReddit.url? "subreddit-item": "subreddit-item-clicked"}
@@ -60,51 +60,16 @@ const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink, isMenuOpened}) => {
                                     alt={subReddit.title} 
                                     className="icon-img"
                                     style={{border: `3px solid ${subReddit.color}`}} 
-                                    />
+                                />
                                 <div className="subReddit-title">{subReddit.title}</div>
                             </div>
-                            );
+                        );
                     })
-                :null
+                    :null
                 }
             </div>
         </div>
     );
-
-    /*
-    return (
-        // Return subreddits' params value in menu
-        <div 
-            //className="subreddits-menu"
-            className={`subreddits-menu ${!isMenuOpened ? 'closed': ''}`}
-        >
-            <h3>Subreddits</h3>
-            <div className="subreddits-container">
-                {status === 'loading' && <h2>loading....</h2>}
-                {status === 'failed' && <h2>Error is: {error}</h2>}
-                {(status === 'succeeded' && subReddits && subReddits.length>0)
-                ?subReddits.map((subReddit, idx) => {
-                    return (
-                            <div 
-                                key = {subReddit.title || idx}
-                                className={selected!==subReddit.url? "subreddit-item": "subreddit-item-clicked"}
-                                onClick={() => handleClick(subReddit.url)}
-                            >
-                                <img src={subReddit.iconUrl || 'images/no-image-icon.png'} 
-                                    alt={subReddit.title} 
-                                    className="icon-img"
-                                    style={{border: `3px solid ${subReddit.color}`}} 
-                                    />
-                                <div className="subReddit-title">{subReddit.title}</div>
-                               {/*} <div>{subReddit.url}</div> //}
-                            </div>
-                            );
-                    })
-                :null
-                }
-            </div>
-        </div>
-    );*/
 };
 
 export default SubRedditsMenu;
