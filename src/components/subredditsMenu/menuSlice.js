@@ -12,7 +12,7 @@ export const getAllSubReddits = createAsyncThunk('menu/getAllSubReddits', // lin
 
             // Gracefully fails posts rendering to enable debugging.
             if (!data?.data?.children || !Array.isArray(data.data.children)) {
-                console.warn("Invalid Reddit API response:", data);
+                console.log("Invalid Reddit API response:", data);
                 return rejectWithValue("Unexpected Reddit API format");
             }
 

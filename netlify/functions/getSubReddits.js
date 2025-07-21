@@ -11,7 +11,7 @@ const handler = async (event, context) => {  // Define the Netlify serverless fu
     console.log("🔥 RAW Reddit API Response:", JSON.stringify(response.data, null, 2));
     const data = response.data;
     if (!data?.data?.children || !Array.isArray(data.data.children)) {
-      console.warn("⚠️ Unexpected Reddit API structure(1)", data);
+      console.log("⚠️ Unexpected Reddit API structure(1)", data);
       return {
         statusCode: 500,
         body: JSON.stringify({ error: 'Unexpected Reddit API structure(1)' }),

@@ -24,14 +24,14 @@ const handler = async (event) => {  // Define the Netlify serverless function ha
 
 
     if (!Array.isArray(data) || data.length < 2){  // 🔒 Basic structure validation
-      console.warn("⚠️ Unexpected Reddit API structure (not an array or too short)(2):", data);
+      console.log("⚠️ Unexpected Reddit API structure (not an array or too short)(2):", data);
       return {
         statusCode: 500,
         body: JSON.stringify({ error: 'Unexpected Reddit API structure (not array or too short) (2)' }),
       };
     }
     if (!data[1]?.data?.children){  // Optional deeper check on post + comments
-      console.warn("⚠️ Reddit response missing expected comments data at [1].data.children (2)", data);
+      console.log("⚠️ Reddit response missing expected comments data at [1].data.children (2)", data);
       return {
         statusCode: 500,
         body: JSON.stringify({ error: 'Unexpected Reddit API structure (missing children array) (2)' }),
