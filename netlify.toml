@@ -18,3 +18,9 @@ status = 200
   to = "/.netlify/functions/getPostComments"
   status = 200
 
+[[redirects]]
+  from = "/api/debug"
+  to = "/.netlify/functions/debugRedditRequest"
+  status = 200
+
+
