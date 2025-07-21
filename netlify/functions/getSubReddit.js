@@ -2,9 +2,12 @@ const axios = require('axios');  // Import Axios to perform HTTP requests
 
 const handler = async (event) => {  // Define the Netlify serverless function handler
 
+  console.log("✅ getSubReddit function triggered");
+
   const { path } = event.queryStringParameters; // Extract the `path` query param from the request (e.g., /r/gaming)
 
   if (!path) {  // If no path is provided, return 400 Bad Request json response
+    console.log("⚠️ No subreddit path provided.");
     return {
       statusCode: 400,
       body: JSON.stringify({ error: 'Missing subReddit path.' }),
@@ -45,6 +48,7 @@ const handler = async (event) => {  // Define the Netlify serverless function ha
     };
   } 
   catch (error) {  // On error, return HTTP 500 json response with error message
+    console.error("❌ Failed to fetch subreddit:", error.message);
     return {
       statusCode: 500,              
       body: JSON.stringify({ 

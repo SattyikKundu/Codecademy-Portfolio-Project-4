@@ -7,12 +7,16 @@ export const getAllSubReddits = createAsyncThunk('menu/getAllSubReddits', // lin
     //async ()=>{ // asycn function that run on extraReducer trigger
     async (_, { rejectWithValue }) => { // <== review this later!!!!
 
+        console.log("🌐 Redux thunk: getAllSubReddits started");
+
         try {
             const data = await RedditAPIcallsfrom.getSubReddits(); // get All subreddits from json (unable to add await?)
 
             // Gracefully fails posts rendering to enable debugging.
             if (!data?.data?.children || !Array.isArray(data.data.children)) {
-                console.log("Invalid Reddit API response:", data);
+                console.warn("⚠️ Redux thunk: unexpected subreddit response", 
+                JSON.stringify(data).slice(0, 500)
+                );
                 return rejectWithValue("Unexpected Reddit API format");
             }
 
@@ -25,10 +29,12 @@ export const getAllSubReddits = createAsyncThunk('menu/getAllSubReddits', // lin
                     //url:     RedditAPIcallsfrom.getFullSubRedditUrl(child.data.url || '')
                 }
             ));
-            console.log('Sub Reddits array: ', subRedditsArray);
+            console.log("✅ Subreddits parsed (sample):", subRedditsArray.slice(0, 3));
+            //console.log('Sub Reddits array: ', subRedditsArray);
             return subRedditsArray; // return array with sub Reddits' information for menu
         }
         catch (error) {
+            console.error("❌ Redux thunk error:", error.message);
             return rejectWithValue('Reddit API failed');
         }
     }

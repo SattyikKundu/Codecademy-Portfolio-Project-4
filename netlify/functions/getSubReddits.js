@@ -1,6 +1,9 @@
 const axios = require('axios');   // Import Axios library to make HTTP requests
 
 const handler = async (event, context) => {  // Define the Netlify serverless function handler
+
+  console.log("✅ getSubReddits function triggered"); // Top level
+
   try {
     const response = await axios.get(         // Make a GET request to Reddit's subreddits endpoint
       'https://www.reddit.com/subreddits.json' // URL to get list of popular subReddits
@@ -24,6 +27,7 @@ const handler = async (event, context) => {  // Define the Netlify serverless fu
     };
   } 
   catch (error) {  // If there's an error, return json response with HTTP 500 Internal Server Error
+    console.error("❌ Failed to fetch subreddits:", error.message);
     return {
       statusCode: 500,         
       body: JSON.stringify({    // Include error message in the response body
