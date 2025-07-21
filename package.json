@@ -4,7 +4,7 @@
   "description": "Reddit-Minimal-App-project",
   "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "netlify dev",
     "build": "react-scripts build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,7 +29,9 @@
     "@reduxjs/toolkit": "^2.6.1",
     "axios": "^1.8.4",
     "cheerio": "^1.0.0",
+    "cors": "^2.8.5",
     "dashjs": "^5.0.0",
+    "express": "^5.1.0",
     "install": "^0.13.0",
     "npm": "^10.9.2",
     "react": "^19.1.0",
@@ -40,5 +42,8 @@
     "react-scripts": "^5.0.1",
     "react-spinners": "^0.17.0",
     "redux": "^5.0.1"
+  },
+  "devDependencies": {
+    "netlify-cli": "^22.3.0"
   }
 }

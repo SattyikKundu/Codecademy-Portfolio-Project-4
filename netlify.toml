@@ -1,0 +1,13 @@
+[build]
+functions = "netlify/functions"           # Tell Netlify where the backend functions live
+publish = "build"                         # Tell Netlify to deploy the built frontend from this folder
+
+[[redirects]]
+from = "/api/subreddits"                  # Requests to this URL (and other one below)...
+to = "/.netlify/functions/getSubReddits"  # ...will route to the backend function file
+status = 200                              # Treated as a successful proxy (not a redirect)
+
+[[redirects]]
+from = "/api/subreddit"
+to = "/.netlify/functions/getSubReddit"
+status = 200
