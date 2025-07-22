@@ -1,3 +1,4 @@
+/*
 const axios = require('axios');   // Import Axios library to make HTTP requests
 
 const handler = async (event, context) => {  // Define the Netlify serverless function handler
@@ -55,3 +56,43 @@ const handler = async (event, context) => {  // Define the Netlify serverless fu
 };
 
 module.exports = { handler }; // Export the handler function so Netlify can use it
+*/
+
+const axios = require("axios");
+
+const { getRedditAccessToken } = require("./utils/redditAuthHelper");
+
+const handler = async (event, context) => {
+
+  
+
+  try {
+    const token = await getRedditAccessToken();
+
+    const response = await axios.get(
+      "https://oauth.reddit.com/subreddits/popular",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "User-Agent": `web:mini-reddit-clone.netlify.app:v1.0 (by /u/${process.env.REDDIT_USERNAME})`,
+        },
+      }
+    );
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(response.data),
+    };
+  } catch (error) {
+    console.error("❌ Failed to fetch subreddits:", error.message);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        error: "Reddit API fetch failed",
+        details: error.message,
+      }),
+    };
+  }
+};
+
+module.exports = { handler };

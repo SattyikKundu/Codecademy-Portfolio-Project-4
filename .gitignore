@@ -2,5 +2,9 @@
 ## folder since it's too big for 
 ## uploading to github
 node_modules
+
 # Local Netlify folder
-.netlify
+.netlify 
+
+# .env file
+.env
