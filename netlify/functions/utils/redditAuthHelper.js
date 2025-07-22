@@ -22,7 +22,7 @@ async function getRedditAccessToken() {
         password: clientSecret,
       },
       headers: {
-        "User-Agent": `web:redditclone.liveappdemo.com:v1.0 (by /u/${process.env.REDDIT_USERNAME})`,
+        "User-Agent": `web:mini-reddit-clone.netlify.app:v1.0 (by /u/${process.env.REDDIT_USERNAME})`,
         "Content-Type": "application/x-www-form-urlencoded",
       },
     }

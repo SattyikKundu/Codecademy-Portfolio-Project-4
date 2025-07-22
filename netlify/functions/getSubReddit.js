@@ -105,6 +105,8 @@ const { getRedditAccessToken } = require("./utils/redditAuthHelper");
 const handler = async (event) => {
   const { permalink } = event.queryStringParameters;
 
+  console.log('Permalinkg: ',permalink);
+
   if (!permalink) {
     return {
       statusCode: 400,
@@ -116,6 +118,8 @@ const handler = async (event) => {
     const token = await getRedditAccessToken();
     const cleanedPermalink = permalink.endsWith("/") ? permalink.slice(0, -1) : permalink;
 
+    console.log('cleanedPermalink: ', cleanedPermalink);
+
     const response = await axios.get(
       `https://oauth.reddit.com${cleanedPermalink}.json`,
       {
@@ -126,11 +130,14 @@ const handler = async (event) => {
       }
     );
 
+    console.log('Response: ', response);
+
     return {
       statusCode: 200,
       body: JSON.stringify(response.data[1]), // Only return comments
     };
-  } catch (error) {
+  } 
+  catch (error) {
     console.error("❌ Failed to fetch comments:", error.message);
     return {
       statusCode: 500,

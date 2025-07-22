@@ -56,8 +56,8 @@ const RedditAPIcalls = {
 
 
   async getSubRedditPosts(subRedditUrl) {       // retuns JSON object of specific subreddit based on url param input
-    const response = await fetch(subRedditUrl); // This URL should come from getFullSubRedditUrl()
-    const  posts   = await response.json();     // Parses the JSON Reddit post list for subReddit
+    const  response = await fetch(subRedditUrl); // This URL should come from getFullSubRedditUrl()
+    const  posts    = await response.json();     // Parses the JSON Reddit post list for subReddit
     return posts;
   },
 
