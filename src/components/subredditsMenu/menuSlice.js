@@ -7,8 +7,6 @@ export const getAllSubReddits = createAsyncThunk('menu/getAllSubReddits', // lin
     //async ()=>{ // asycn function that run on extraReducer trigger
     async (_, { rejectWithValue }) => { // <== review this later!!!!
 
-        console.log("🌐 Redux thunk: getAllSubReddits started");
-
         try {
             const data = await RedditAPIcallsfrom.getSubReddits(); // get All subreddits from json (unable to add await?)
 
@@ -29,8 +27,6 @@ export const getAllSubReddits = createAsyncThunk('menu/getAllSubReddits', // lin
                     //url:     RedditAPIcallsfrom.getFullSubRedditUrl(child.data.url || '')
                 }
             ));
-            console.log("✅ Subreddits parsed (sample):", subRedditsArray.slice(0, 3));
-            //console.log('Sub Reddits array: ', subRedditsArray);
             return subRedditsArray; // return array with sub Reddits' information for menu
         }
         catch (error) {

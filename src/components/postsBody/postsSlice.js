@@ -8,10 +8,16 @@ import RedditAPIcalls from '../../utils/redditAPIcalls/redditAPIcalls.js';
 /***************************************************************************************************************/
 export const getPosts = createAsyncThunk('posts/getPosts',
 
-    async (subbRedditUrl) => { // function runs when asyncThink executed
+    async (subRedditUrl) => { // function runs when asyncThink executed
 
         // First get data of all posts of chosen Sub Reddit (via subbRedditUrl) 
-        const subRedditData = await RedditAPIcalls.getSubRedditPosts(subbRedditUrl);
+
+        console.log('*subbRedditUrl* in postsSlice.js: ', subRedditUrl);
+
+        const subRedditData = await RedditAPIcalls.getSubRedditPosts(subRedditUrl);
+
+        console.log('Raw Reddit API response(postsSlice.js):', subRedditData);
+
 
         // In below function used to create Post objects (containing relevant data), Promise.all() 
         // is used to wait for all comment-fetching to finish (using getComments()) 

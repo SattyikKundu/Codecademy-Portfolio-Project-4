@@ -23,6 +23,8 @@ import './postsBody.css'; // styling file
 
 const PostsBody = ({ subRedditUrl }) => {
 
+    console.log('*subRedditUrl* In PostsBody.js: ',subRedditUrl);
+
     const posts      = useSelector(state => state.posts.posts); // imported states from 'posts' slice
     const status     = useSelector(state => state.posts.status);
     const error      = useSelector(state => state.posts.error);
