@@ -4,16 +4,18 @@ import RedditAPIcallsfrom from "../../utils/redditAPIcalls/redditAPIcalls";
 /* AsyncThunk() for extracting data for creating subReddit choices for menu  */
 export const getAllSubReddits = createAsyncThunk('menu/getAllSubReddits', // links to extraReducers in 'menu' slice
 
-    //async ()=>{ // asycn function that run on extraReducer trigger
-    async (_, { rejectWithValue }) => { // <== review this later!!!!
+    // async function that run on extraReducer trigger
+    async (_, { rejectWithValue }) => { // '_' is a placeholder for no input payload used
+                                        // { rejectWithValue } => tool from Redux toolkit that enables custom error messages
 
         try {
             const data = await RedditAPIcallsfrom.getSubReddits(); // get All subreddits from json (unable to add await?)
 
             // Gracefully fails posts rendering to enable debugging.
             if (!data?.data?.children || !Array.isArray(data.data.children)) {
-                console.warn("⚠️ Redux thunk: unexpected subreddit response", 
-                JSON.stringify(data).slice(0, 500)
+                console.warn(
+                    "⚠️ Redux thunk: unexpected subreddit response", 
+                    JSON.stringify(data).slice(0, 500)
                 );
                 return rejectWithValue("Unexpected Reddit API format");
             }

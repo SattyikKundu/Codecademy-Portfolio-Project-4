@@ -44,7 +44,6 @@ export const VideoHolder = ({postType, video}) => { // Pass video url so it can 
         {/* Below returns reddit-host video */}
         {(postType==='hosted:video') && (
                 <video 
-                    //className='post-vid'
                     className='reddit-video'
                     ref={videoRef}     // Tells React to "assign this <video> to 'videoRef.current' from earlier
                     width={video.width}  /* Default width and height of video provided, but fits and scales to parent 

@@ -6,7 +6,7 @@
 
     top:0; left:0; /* used to remove white space from top-left*/
 
-    height: 60px;/*10vh; /* height just matches with subreddit menu */
+    height: 60px; /* height just matches with subreddit menu */
 
     position: fixed; /* Enables search Bar to float */
     z-index: 10;     /* floats search bar above below components*/

@@ -148,8 +148,8 @@ const PostsBody = ({ subRedditUrl }) => {
         return () => window.removeEventListener("resize", updateLoaderSize); // remove listerner on un-mount
     }, []);
 
-    //if(loading) { // enable when testing loading notice
-    if(status  === 'loading') { // whilst page is loading...
+
+    if(status  === 'loading') { // Show notice when page is loading...
       return(
         <div className="all-posts">
             <div className="loader-notice">
@@ -160,7 +160,7 @@ const PostsBody = ({ subRedditUrl }) => {
       );
     }
 
-    if(status  === 'failed') { // If post retrieval failed...
+    if(status  === 'failed') { // Show error notice when post retrieval fails
         return(
           <div className="all-posts">
             <div className="posts-error-notice">

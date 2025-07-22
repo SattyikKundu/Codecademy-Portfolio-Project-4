@@ -8,21 +8,14 @@ import RedditAPIcalls from '../../utils/redditAPIcalls/redditAPIcalls.js';
 /***************************************************************************************************************/
 export const getPosts = createAsyncThunk('posts/getPosts',
 
-    async (subRedditUrl) => { // function runs when asyncThink executed
+    async (subRedditUrl) => { // function runs when asyncThunk executed
 
         // First get data of all posts of chosen Sub Reddit (via subbRedditUrl) 
-
-        console.log('*subbRedditUrl* in postsSlice.js: ', subRedditUrl);
-
         const subRedditData = await RedditAPIcalls.getSubRedditPosts(subRedditUrl);
 
-        console.log('Raw Reddit API response(postsSlice.js):', subRedditData);
-
-
-        // In below function used to create Post objects (containing relevant data), Promise.all() 
-        // is used to wait for all comment-fetching to finish (using getComments()) 
+        // In below function used to create Post objects (containing relevant data), 
+        // Promise.all() is used to wait for all comment-fetching to finish (using getComments()) 
         const subRedditPosts = await Promise.all( 
-            //subRedditData.data.children.map(async(child) =>{
             subRedditData.map(async(child) =>{
 
                 let data;                       // Stores extracted 1st nested layer of 'child' 
@@ -37,16 +30,13 @@ export const getPosts = createAsyncThunk('posts/getPosts',
                         the nested item in as data. */
                 if (child.data.crosspost_parent_list && child.data.crosspost_parent_list.length > 0) { 
                     data = child.data.crosspost_parent_list[0]; 
-                } else {  
+                } 
+                else {  
                     data = child.data;  // Otherwise use original post data
                 }
 
-
-                /* #2 Use getComments() function (from later in file) to extract all comments
-                      using the posts' permalink. Comments are stored in an array.  */
-                //const comments = await getComments(data.permalink); 
-
-                //console.log('Post title: ',data.title,', Comments:',comments);
+                /* #2: Post comments are handled separately from this file. 
+                       In postsBody.js, comments are handled comments.js (and commentsSlice.js).  */
 
                 /* #3: Now obtain posts's image(s) url, width, and height from metadata.
                        For multiple images, data is stored in 'media_metadata' property while
@@ -102,7 +92,6 @@ export const getPosts = createAsyncThunk('posts/getPosts',
                     } 
                 }
                 /* #4.2: Check if single image post */ 
-                //data.preview && data.preview.images && data.preview.images.length > 0 
                 else if(data.post_hint==="image" && data.preview && data.preview.images) {
 
                     postType = 'image'; // set post type as 'image'
@@ -167,7 +156,6 @@ export const getPosts = createAsyncThunk('posts/getPosts',
                         /* Below function handles html-escaped string data by decoding HTML-escaped 
                            characters (like &lt;, &gt;, &amp;) into their actual symbols (like <, >, &) */
                         const decodeHTML = (html) => { 
-                        //const txt = document.createElement("div");
                         const txt = document.createElement("textarea"); // create new <textarea> element (not appended to DOM). 
                                                                         // browser treats its .innerHTML as real HTML.
 
@@ -327,7 +315,7 @@ export const getPosts = createAsyncThunk('posts/getPosts',
 
 /***************************************************************************************************************/
 /***************************************************************************************************************/
-/******************* Below asycn thunk function returns all comments within a selected post ********************/
+/******************* Below async thunk function returns all comments within a selected post ********************/
 /***************************************************************************************************************/
 /***************************************************************************************************************/
 

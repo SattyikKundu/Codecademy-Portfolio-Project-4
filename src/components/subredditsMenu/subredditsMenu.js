@@ -10,9 +10,10 @@ import './subredditsMenu.css';
 
 const SubRedditsMenu = ({setSubRedditUrl, setSubPermalink, isMenuOpened}) => {
 
-    // Track currently selected Sub Reddit
-    //const [selected, setSelected] = useState('/r/Damnthatsinteresting/');//useState('/r/Home/'); // sets default subReddit to 'Home' subreddit
-    const [selected, setSelected] = useState('/r/Home/');
+    // Track currently selected Sub Reddit (default subReddit value is useState())
+
+    //const [selected, setSelected] = useState('/r/Damnthatsinteresting/');
+    const [selected, setSelected] = useState('/r/Home/'); 
 
     const subReddits = useSelector(state => state.menu.subReddits);// import states from menuSlice
     const status     = useSelector(state => state.menu.status);

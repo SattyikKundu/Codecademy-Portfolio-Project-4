@@ -1,9 +1,10 @@
-const axios = require("axios");
+const axios = require("axios"); // used for axios methods
 
-let cachedToken = null;
+let cachedToken = null; // create token holder variables
 let tokenExpiry = null;
 
-async function getRedditAccessToken() {
+//async function getRedditAccessToken() {
+const getRedditAccessToken = async () => {
   const now = Date.now();
 
   if (cachedToken && tokenExpiry && now < tokenExpiry) {

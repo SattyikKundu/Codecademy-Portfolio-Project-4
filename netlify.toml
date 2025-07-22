@@ -12,15 +12,7 @@ from = "/api/subreddit"
 to = "/.netlify/functions/getSubReddit"
 status = 200
 
-
 [[redirects]]
   from = "/api/comments"
   to = "/.netlify/functions/getPostComments"
   status = 200
-
-[[redirects]]
-  from = "/api/debug"
-  to = "/.netlify/functions/debugRedditRequest"
-  status = 200
-
-

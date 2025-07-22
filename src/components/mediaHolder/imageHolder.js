@@ -57,19 +57,21 @@ export const ImageHolder = ({postType, images}) => {
                 const containerWidth = containerRef.current?.clientWidth || 0; // gets container's width via containerRef
 
                 if (imgHeight > imgWidth) { // if height > width, it's a 'tall' image 
-                    //setMaxHeight(500);      
-                    setMaxHeight(400);  // prevent tall image from going past 500px height 
+   
                     //setAspectRatio(containerWidth/maxHeight); // aspect ratio to keep container shape
+                    setMaxHeight(400);  // prevent tall image from going past 500px height 
                 }
                 if(imgWidth >= imgHeight){ 
                     /* if 'horizontal' image, adjust max-height to avoid extra 
                        container space if scaled down hieght is under 500px. */
-                    const aspect = imgHeight/imgWidth;
-                    const scaledHeight = aspect * containerWidth;
+
+                    //const aspect = imgHeight/imgWidth;
+                    //const scaledHeight = aspect * containerWidth;
+                    //setAspectRatio(containerWidth/scaledHeight);
+
                     //setMaxHeight(scaledHeight < 500 ? scaledHeight: 500);
                     //setMaxHeight(500);
                     setMaxHeight(400);
-                    //setAspectRatio(containerWidth/scaledHeight);
                 }
         }
 

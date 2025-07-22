@@ -4,7 +4,16 @@
 node_modules
 
 # Local Netlify folder
+# NOTE: This is automatically created via 'netlify-cli' package
+#       when using the 'netlify dev' command, as shown in package.json.
+#
+#  .netlify/ stores:
+#    -local dev config
+#    -cached build data
+#    -function bundling metadata
+#    -edge/redirect previews
+#
 .netlify 
 
-# .env file
+# .env file (environmental variables storage file)
 .env

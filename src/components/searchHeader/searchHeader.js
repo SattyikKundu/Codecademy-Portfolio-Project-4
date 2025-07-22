@@ -1,28 +1,29 @@
-import {useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setSearchTerm } from '../postsBody/postsSlice';
+import { setSearchTerm } from '../postsBody/postsSlice'; // import 'setSearchTerm' to filter posts
 
 import './searchHeader.css';
 
 const SearchHeader = ({subPermalink, isMenuOpened, setIsMenuOpened}) => {
 
-    const [localInput, setLocalInput] = useState('');
+    const [localInput, setLocalInput] = useState(''); // tracks text in header's search box
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch(); // enable dispatch
 
-    const handleSubmit = () => {
+    const handleSubmit = () => { // on Submit, filter posts based on search query
         dispatch(setSearchTerm(localInput));
     }
 
-    const handleClear = () => {
+    const handleClear = () => { // Clear search query and return all posts for SubReddit
         setLocalInput('');
         dispatch(setSearchTerm(''));
-
     }
 
-    const handleMenuToggle = () => {
+    const handleMenuToggle = () => {     // toggles menu to open/close when its 
+                                         // a side-menu (for tablet/mobile screens)  
+                                         
          setIsMenuOpened(prev => !prev); //toggles the previous isMenuOpenedValue
-     }
+    }
 
 
     useEffect(() => {
