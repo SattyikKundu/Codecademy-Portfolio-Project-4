@@ -1,3 +1,4 @@
+/*
 const axios = require('axios');  // Import Axios to perform HTTP requests
 
 const handler = async (event) => {  // Define the Netlify serverless function handler
@@ -48,7 +49,7 @@ const handler = async (event) => {  // Define the Netlify serverless function ha
         statusCode: 500,
         body: JSON.stringify({ error: 'Unexpected Reddit API structure (not array or too short) (2)' }),
       };
-    }*/
+    }//
 
     /*
     if (!data?.data?.children || !Array.isArray(data.data.children)) {
@@ -57,7 +58,7 @@ const handler = async (event) => {  // Define the Netlify serverless function ha
         statusCode: 500,
         body: JSON.stringify({ error: 'Unexpected Reddit API structure (missing post list)' }),
       };
-    }*/
+    }//
 
     if (!data || !data.data || !Array.isArray(data.data.children)) {
       console.log("⚠️ Invalid Reddit structure. Logging response:", JSON.stringify(data).slice(0, 500));
@@ -75,7 +76,7 @@ const handler = async (event) => {  // Define the Netlify serverless function ha
         statusCode: 500,
         body: JSON.stringify({ error: 'Unexpected Reddit API structure (missing children array) (2)' }),
       };
-    }*/
+    }//
 
 
     return {
@@ -96,3 +97,49 @@ const handler = async (event) => {  // Define the Netlify serverless function ha
 };
 
 module.exports = { handler };  // Export handler for Netlify to use
+*/
+
+const axios = require("axios");
+const { getRedditAccessToken } = require("./utils/redditAuthHelper");
+
+const handler = async (event) => {
+  const { permalink } = event.queryStringParameters;
+
+  if (!permalink) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: "Missing permalink parameter" }),
+    };
+  }
+
+  try {
+    const token = await getRedditAccessToken();
+    const cleanedPermalink = permalink.endsWith("/") ? permalink.slice(0, -1) : permalink;
+
+    const response = await axios.get(
+      `https://oauth.reddit.com${cleanedPermalink}.json`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "User-Agent": `web:mini-reddit-clone.netlify.app:v1.0 (by /u/${process.env.REDDIT_USERNAME})`,
+        },
+      }
+    );
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(response.data[1]), // Only return comments
+    };
+  } catch (error) {
+    console.error("❌ Failed to fetch comments:", error.message);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        error: "Failed to fetch comments",
+        details: error.message,
+      }),
+    };
+  }
+};
+
+module.exports = { handler };

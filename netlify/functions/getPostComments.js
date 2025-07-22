@@ -1,3 +1,4 @@
+/*
 const axios = require('axios'); // Import Axios to make HTTP requests
 
 const handler = async (event) => { // Define the serverless function handler
@@ -40,3 +41,49 @@ const handler = async (event) => { // Define the serverless function handler
 };
 
 module.exports = { handler }; // Export the handler so Netlify can execute it as a function
+*/
+
+const axios = require("axios");
+const { getRedditAccessToken } = require("./utils/redditAuthHelper");
+
+const handler = async (event) => {
+  const { permalink } = event.queryStringParameters;
+
+  if (!permalink) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ error: "Missing permalink parameter" }),
+    };
+  }
+
+  try {
+    const token = await getRedditAccessToken();
+    const cleanedPermalink = permalink.endsWith("/") ? permalink.slice(0, -1) : permalink;
+
+    const response = await axios.get(
+      `https://oauth.reddit.com${cleanedPermalink}.json`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "User-Agent": `web:mini-reddit-clone.netlify.app:v1.0 (by /u/${process.env.REDDIT_USERNAME})`,
+        },
+      }
+    );
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify(response.data[1]), // Only return comments
+    };
+  } catch (error) {
+    console.error("❌ Failed to fetch comments:", error.message);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({
+        error: "Failed to fetch comments",
+        details: error.message,
+      }),
+    };
+  }
+};
+
+module.exports = { handler };
