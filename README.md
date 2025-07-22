@@ -111,7 +111,7 @@ This is **Portfolio Project #4** for my Full-stack web development course on Cod
 5. Rename the `.env.example` file to `.env` in order to store environment variables. Steps #6-7 will provide environment variable values to add to `.env`. 
 6. Below screenshot is the form for creating a Reddit app to interface with. Fill out based on template in screenshot. However, app type should be *script* since its a developer app. Also, *redirect uri* should where the app is being host. This can be on your localhost (like `http://localhost:8888` or something similar) or on a hosting site like Netlify (like  `https://your-subdomain-name.netlify.app/`); the *redirect uri* also needs to start with `http://` or `https://`. <ins>Finally, after filling out fields, click the **`create app`** button</ins>:
 <img width="600" alt="Reddit app creation screenshot #1" src="https://github.com/user-attachments/assets/d405641d-591d-4566-9de4-1ca9b751f991" /></br>
-7. Next, after creating the Reddit app (see screenshot below), get the `client_Id` (in area covered in *purple*), `client_Secret` (in area covered in *blue*), and `reddit username` (in area covered in *green*) and insert them into the `.env` file:
+7. Next, after creating the Reddit app (see screenshot below), get the `REDDIT_CLIENT_ID` (in area covered in *purple*), `REDDIT_CLIENT_SECRET` (in area covered in *blue*), and `REDDIT_USERNAME` (in area covered in *green*) and insert them into the `.env` file:
 <img width="600" alt="Reddit app creation screenshot #2" src="https://github.com/user-attachments/assets/b8818eb8-3e65-49cc-b12c-d10003a830de"></br>
 8. Finally, run the app locally using a `npm start` command to run the app inside your Command Line Interface (CLI) or Independent Developer Environment (IDE).
 ---
