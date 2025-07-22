@@ -22,7 +22,8 @@ export const getPosts = createAsyncThunk('posts/getPosts',
         // In below function used to create Post objects (containing relevant data), Promise.all() 
         // is used to wait for all comment-fetching to finish (using getComments()) 
         const subRedditPosts = await Promise.all( 
-            subRedditData.data.children.map(async(child) =>{
+            //subRedditData.data.children.map(async(child) =>{
+            subRedditData.map(async(child) =>{
 
                 let data;                       // Stores extracted 1st nested layer of 'child' 
                 let galleryUnavailable = false; // Flags if originally existing gallery is somehow unavailable
