@@ -8,6 +8,13 @@ const handler = async (event, context) => {  // Define the Netlify serverless fu
     const response = await axios.get(         // Make a GET request to Reddit's subreddits endpoint
       'https://www.reddit.com/subreddits.json', // URL to get list of popular subReddits
       // 'https://www.reddit.com/subreddits.json?limit=10' // Comment out above if you want to limit subReddits on left menu
+      {
+        headers: { 
+          'User-Agent': 'web:redditclone.liveappdemo.com:v1.0 (by /u/Anonymous-SK)',
+          'Accept': 'application/json',
+          'Accept-Language': 'en-US,en;q=0.9'
+        }
+      }
       //{headers: { 'User-Agent': 'RedditMinimalApp/1.0 (+https://mini-reddit-clone.netlify.app)' }}
       // {headers: {
       //   'User-Agent': 'Mozilla/5.0 (compatible; RedditMinimalApp/1.0; +https://mini-reddit-clone.netlify.app)',
