@@ -42,6 +42,7 @@ This is **Portfolio Project #4** for my Full-stack web development course on Cod
 | `react-router-dom` | Manages navigation and routing in the app using `Routes`, `BrowserRouter`, and `Link`.      |
 | `react-scripts`    | Provides configuration and scripts for running, building, and testing Create React App.     |
 | `react-spinners`   | Offers loading spinner components to indicate loading states in the UI.                     |
+| `netlify-cli`      | Enables app to run and test serverless functions locally, proxy frontend request to `/api/*`, and deploy site and backend functions to Netlify. (<ins>***note***</ins>: `netlify-cli` package is under "devDependencies" in *package.json*)|
 
 ---
 
@@ -92,10 +93,9 @@ This is **Portfolio Project #4** for my Full-stack web development course on Cod
 
 - Since this is a Reddit clone app relying on the actual Reddit's json data, various Reddit interactions can't be replicated including account *login*, *post creation*, and *comment writing*.
 - As stated earlier, while the Search Bar feature can filter posts based on posts' *author*, *title*, and *body text*, the returned posts doesn't highlight any text parts *yellow* to match the search query. This feature will be added in the future in improve user-friendliness when searching.
+- This app requires being connected to a Reddit app created on a Reddit user account. The `client_id` and `client_secret` need to be part of environmental variables to run the full app (*more will be explained in the next section detailing local installation*).
 - Finally, the Reddit API restricts the number of fetch requests for `json` within a period. <ins>***For example***</ins>: Each time a user clicks on a SubReddit option from the left sidemenu, a fetch request is made to the Reddit API for posts' data. Then, if the user clicks the SubReddit options too many times in a short time period, the Reddit API will temporarily restrict API fetches. Usually, the user will need to wait at least 10-15 minutes before reloading the page and accessing the Reddit API again. Here's the screenshot showing error messages for this situation:
   ![(11) Fetch error handling](https://github.com/user-attachments/assets/ee8bd1a4-fa25-4155-b8bb-015fbbddfa36)
-
-
 
 ---
 
@@ -106,15 +106,21 @@ This is **Portfolio Project #4** for my Full-stack web development course on Cod
    git clone https://github.com/SattyikKundu/Codecademy-Portfolio-Project-4.git
    cd Codecademy-Portfolio-Project-4
 2. Have ***Node.js*** installed to run app locally (<ins>**OPTIONALLY**</ins>: install an IDE like **Visual Studio Code** for editing and running app code)
-3. Use `npm install` command to install packages listed in ***package.json*** file.
-4. Finally, run the app locally using a `npm start` command to run the app inside your Command Line Interface (CLI) or Independent Developer Environment (IDE).
-
+3. Use `npm install` command to install packages listed in ***package.json*** file. Note that `netlify-cli` package is part of "devDependencies" in *package.json*.
+4. Have an active Reddit account so you can create your Reddit app. After logging in (or registering first), go to [https://www.reddit.com/prefs/apps](https://www.reddit.com/prefs/apps) in order to start creating the reddit app.
+5. Rename the `.env.example` file to `.env` in order to store environment variables. Steps #6-7 will provide environment variable values to add to `.env`. 
+6. Below screenshot is the form for creating a Reddit app to interface with. Fill out based on template in screenshot. However, app type should be *script* since its a developer app. Also, *redirect uri* should where the app is being host. This can be on your localhost (like `http://localhost:8888` or something similar) or on a hosting site like Netlify (like  `https://your-subdomain-name.netlify.app/`); the *redirect uri* also needs to start with `http://` or `https://`. <ins>Finally, after filling out fields, click the **`create app`** button</ins>:
+<img width="600" alt="Reddit app creation screenshot #1" src="https://github.com/user-attachments/assets/d405641d-591d-4566-9de4-1ca9b751f991" /></br>
+7. Next, after creating the Reddit app (see screenshot below), get the `client_Id` (in area covered in *purple*), `client_Secret` (in area covered in *blue*), and `reddit username` (in area covered in *green*) and insert them into the `.env` file:
+<img width="600" alt="Reddit app creation screenshot #2" src="https://github.com/user-attachments/assets/b8818eb8-3e65-49cc-b12c-d10003a830de"></br>
+8. Finally, run the app locally using a `npm start` command to run the app inside your Command Line Interface (CLI) or Independent Developer Environment (IDE).
 ---
 
 ## VI. Future Improvements for Reddit Minimal
 
-- Add *yellow* highlighting to text areas in posts matching the search query for better user friendliness
-- In the actual Post comment sections found in Reddit, there are lines that connect comments. These lines make it visually easy to follow which comments are nested replies to which comments. I would like to impelment this in a future version of this app. To give an example of what I would like to implement, see below screenshot showing connecting lines between comments:
+- Add *yellow* highlighting to text areas in posts matching the search query for better user friendliness.
+- While my app covers most media handling cases (*image carousels*, *embedded video*, etc.), there are still some edge cases that I'll handle later like showing media in post comments (some users post Gifs, images, and even video link in the posts comment section!).
+- In the actual Post comment sections found in Reddit, there are lines that connect comments. These lines make it visually easy to follow which comments are nested replies to which comments. I would like to impelment something like this in the future. See below screenshot showing what I want to implement:
 <img src='https://github.com/user-attachments/assets/1a64ca4b-43a0-4765-86b2-9b857d61af67' width='500' />
 
 
