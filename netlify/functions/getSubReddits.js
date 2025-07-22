@@ -11,7 +11,7 @@ const handler = async (event, context) => {  // Define the Netlify serverless fu
       {
         headers: { 
           //'User-Agent': 'web:redditclone.liveappdemo.com:v1.0 (by /u/Anonymous-SK)',
-          'User-Agent': 'web:mini-reddit-clone.netlify.app:v1.0 (by /u/Anonymous-SK)',
+          'User-Agent': 'web:https://mini-reddit-clone.netlify.app:v1.0 (by /u/Anonymous-SK)',
           'Accept': 'application/json',
           'Accept-Language': 'en-US,en;q=0.9'
         }
@@ -43,7 +43,7 @@ const handler = async (event, context) => {  // Define the Netlify serverless fu
     };
   } 
   catch (error) {  // If there's an error, return json response with HTTP 500 Internal Server Error
-    console.error("❌ Failed to fetch subreddits:", error.message);
+    console.log("❌ Failed to fetch subreddits:", error.message);
     return {
       statusCode: 500,         
       body: JSON.stringify({    // Include error message in the response body
