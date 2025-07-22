@@ -24,6 +24,8 @@ const handler = async (event, context) => {  // Define the Netlify serverless fu
       // }}
     );
 
+    console.log('Response is: ', response);
+
     // Add this for debugging
     // console.log("🔥 RAW Reddit API Response:", JSON.stringify(response.data, null, 2));
     // const data = response.data;
