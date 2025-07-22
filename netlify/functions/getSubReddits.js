@@ -10,7 +10,8 @@ const handler = async (event, context) => {  // Define the Netlify serverless fu
       // 'https://www.reddit.com/subreddits.json?limit=10' // Comment out above if you want to limit subReddits on left menu
       {
         headers: { 
-          'User-Agent': 'web:redditclone.liveappdemo.com:v1.0 (by /u/Anonymous-SK)',
+          //'User-Agent': 'web:redditclone.liveappdemo.com:v1.0 (by /u/Anonymous-SK)',
+          'User-Agent': 'web:mini-reddit-clone.netlify.app:v1.0 (by /u/Anonymous-SK)',
           'Accept': 'application/json',
           'Accept-Language': 'en-US,en;q=0.9'
         }
