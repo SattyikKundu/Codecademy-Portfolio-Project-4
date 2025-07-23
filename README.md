@@ -48,7 +48,7 @@ This is **Portfolio Project #4** for my Full-stack web development course on Cod
 
 ## III. Live Site & Demo Screenshots
 
-- 🔗 **Live Site:** [https://mini-reddit-clone.netlify.app](https://mini-reddit-clone.netlify.app/)
+- 🔗 **Live Site:** [https://mini-reddit-clone.netlify.app](https://mini-reddit-clone.netlify.app/) *(Right-click to open in new tab for best experience)*
 
 ### **Screenshots of Reddit Minimal's features and how they work:**
 <ins>**Note:**</ins> Many of these screenshots are zoomed in for better viewing.
