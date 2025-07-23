@@ -28,7 +28,7 @@ This is **Portfolio Project #4** for my Full-stack web development course on Cod
 - **Netlify**         — used for public deployment of the app.
 - **Reddit JSON**     — used to access and extract SubReddits' data to get infromation on top SubReddits as well as
 - **CSS**             — used for styling purposes.
-- **React packages**    — imported several packages to help implement app (below are some of those packages within my ***package.json*** file):
+- **React packages**    — imported several packages to help implement app (below are the main packages found within my ***package.json*** file):
 
 | Package | Description |
 | --- | --- |
@@ -108,12 +108,18 @@ This is **Portfolio Project #4** for my Full-stack web development course on Cod
 2. Have ***Node.js*** installed to run app locally (<ins>**OPTIONALLY**</ins>: install an IDE like **Visual Studio Code** for editing and running app code)
 3. Use `npm install` command to install packages listed in ***package.json*** file. Note that `netlify-cli` package is part of "devDependencies" in *package.json*.
 4. Have an active Reddit account so you can create your Reddit app. After logging in (or registering first), go to [https://www.reddit.com/prefs/apps](https://www.reddit.com/prefs/apps) in order to start creating the reddit app.
-5. Rename the `.env.example` file to `.env` in order to store environment variables. Steps #6-7 will provide environment variable values to add to `.env`. 
+5. Rename the `.env.example` file to `.env` in order to store environment variables. Step #7 will explain which environment variables to add to `.env`. 
 6. Below screenshot is the form for creating a Reddit app to interface with. Fill out based on template in screenshot. However, app type should be *script* since its a developer app. Also, *redirect uri* should where the app is being host. This can be on your localhost (like `http://localhost:8888` or something similar) or on a hosting site like Netlify (like  `https://your-subdomain-name.netlify.app/`); the *redirect uri* also needs to start with `http://` or `https://`. <ins>Finally, after filling out fields, click the **`create app`** button</ins>:
-<img width="600" alt="Reddit app creation screenshot #1" src="https://github.com/user-attachments/assets/d405641d-591d-4566-9de4-1ca9b751f991" /></br>
-7. Next, after creating the Reddit app (see screenshot below), get the `REDDIT_CLIENT_ID` (in area covered in *purple*), `REDDIT_CLIENT_SECRET` (in area covered in *blue*), and `REDDIT_USERNAME` (in area covered in *green*) and insert them into the `.env` file:
-<img width="600" alt="Reddit app creation screenshot #2" src="https://github.com/user-attachments/assets/b8818eb8-3e65-49cc-b12c-d10003a830de"></br>
-8. Finally, run the app locally using a `npm start` command to run the app inside your Command Line Interface (CLI) or Independent Developer Environment (IDE).
+<img width="600" alt="Reddit app creation screenshot #1" src="https://github.com/user-attachments/assets/9c554a8c-db55-44be-8d42-25687180e87b" /></br>
+
+7. <ins>Next, after creating the Reddit app (see screenshot below), get the following values from created app and add them to your `.env` file</ins>:
+   - `REDDIT_CLIENT_ID` from area covered in *purple*
+   - `REDDIT_CLIENT_SECRET` from area covered in *blue*
+   - `REDDIT_USERNAME` from area covered in *green*)
+   - and `HOSTING_URL` from area covered in *red*, but exclude the `http://` and `https://` when copying the redirect uri value to `HOSTING_URL`. Note that `HOSTING_URL` is the uri where this app's code is hosted (<ins>*example*</ins>: `localhost:8888` OR `your-app-subdomain.netlify.app`). 
+</br><img width="600" alt="Reddit app creation screenshot #2" src="https://github.com/user-attachments/assets/0dfc0689-0f34-4ab1-9eca-697413407278" /></br>
+
+8. Finally, run the app locally using a `npm start` command to run the app inside your Command Line Interface (**CLI**) or Independent Developer Environment (**IDE**).
 ---
 
 ## VI. Future Improvements for Reddit Minimal
