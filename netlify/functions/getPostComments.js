@@ -21,7 +21,7 @@ const handler = async (event) => {  // Define the serverless function handler
       {
         headers: { // Authorization token AND 'User-Agent' used to access Reddit API data
           Authorization: `Bearer ${token}`,
-          "User-Agent": `web:mini-reddit-clone.netlify.app:v1.0 (by /u/${process.env.REDDIT_USERNAME})`,
+          "User-Agent": `web:${process.env.HOSTING_URI}:v1.0 (by /u/${process.env.REDDIT_USERNAME})`,
         },
       }
     );

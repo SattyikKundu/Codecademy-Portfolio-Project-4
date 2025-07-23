@@ -3,12 +3,11 @@ const axios = require("axios"); // used for axios methods
 let cachedToken = null; // create token holder variables
 let tokenExpiry = null;
 
-//async function getRedditAccessToken() {
 const getRedditAccessToken = async () => {
   const now = Date.now();
 
-  if (cachedToken && tokenExpiry && now < tokenExpiry) {
-    return cachedToken; // return cached token if still valid
+  if (cachedToken && tokenExpiry && now < tokenExpiry) { // return cached token if 'now' within token expiry
+    return cachedToken; 
   }
 
   const clientId = process.env.REDDIT_CLIENT_ID;
@@ -23,7 +22,7 @@ const getRedditAccessToken = async () => {
         password: clientSecret,
       },
       headers: {
-        "User-Agent": `web:mini-reddit-clone.netlify.app:v1.0 (by /u/${process.env.REDDIT_USERNAME})`,
+        "User-Agent": `web:${process.env.HOSTING_URI}:v1.0 (by /u/${process.env.REDDIT_USERNAME})`,
         "Content-Type": "application/x-www-form-urlencoded",
       },
     }

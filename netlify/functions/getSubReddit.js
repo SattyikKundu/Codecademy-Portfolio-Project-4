@@ -23,7 +23,7 @@ const handler = async (event) => {
         headers: { // authorization token AND 'User-Agent' needed to get successful request from reddit API 
                    // (even on a 'production' environment like Netlify)
           Authorization: `Bearer ${token}`,
-          "User-Agent": `web:mini-reddit-clone.netlify.app:v1.0 (by /u/${process.env.REDDIT_USERNAME})`,
+          "User-Agent": `web:${process.env.HOSTING_URI}:v1.0 (by /u/${process.env.REDDIT_USERNAME})`,
         },
       }
     );

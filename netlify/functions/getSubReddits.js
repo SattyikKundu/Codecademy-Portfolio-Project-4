@@ -11,7 +11,7 @@ const handler = async (event, context) => {
       {
         headers: { // Authorization token AND 'user-agent' to enable successful access to Reddit API
           Authorization: `Bearer ${token}`,
-          "User-Agent": `web:mini-reddit-clone.netlify.app:v1.0 (by /u/${process.env.REDDIT_USERNAME})`,
+          "User-Agent": `web:${process.env.HOSTING_URI}:v1.0 (by /u/${process.env.REDDIT_USERNAME})`,
         },
       }
     );
